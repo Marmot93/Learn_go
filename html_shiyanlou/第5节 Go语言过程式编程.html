@@ -1,0 +1,3287 @@
+<html lang="zh-CN">
+<head>
+    <style class="vjs-styles-defaults">
+        .video-js {
+            width: 300px;
+            height: 150px;
+        }
+
+        .vjs-fluid {
+            padding-top: 56.25%
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Lei Shi">
+    <meta http-equiv="Cache-Control" content="o-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="csrf-token"
+          content="IjVhNTk5YmM5ZjUzODE2MjhiYjEyZWNhNWYxMzUyMDhlNWYwYzVlNjIi.DIF6jg.DiV8YKaP1W3dF7diKKmjdgJpqNE">
+
+
+    <title>Go语言过程式编程 - 实验楼</title>
+
+
+    <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。"
+          name="description">
+    <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发"
+          name="keywords">
+
+    <meta content="实验楼，琛石科技" name="author">
+
+    <link rel="shortcut icon" href="https://static.shiyanlou.com/favicon.ico">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://static.shiyanlou.com/static/bootstrap-switch/3.3.2/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/bootstrap-tour/0.11.0/css/bootstrap-tour.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/bootstrap-table/1.11.0/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/katex/0.7.1/katex.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/videojs/5.15.1/css/video-js.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/highlight.js/9.9.0/css/monokai-sublime.min.css">
+    <link rel="stylesheet" href="https://static.shiyanlou.com/static/calendar-heatmap/calendar-heatmap.css">
+
+    <link rel="stylesheet" href="/app/dist/css/styles.css?=20170824164541">
+
+    <style>
+        @font-face {
+            font-family: "lantingxihei";
+            src: url("https://static.shiyanlou.com/fonts/FZLTCXHJW.TTF");
+        }
+
+        /* modal 模态框*/
+        #invite-user .modal-body {
+            overflow: hidden;
+        }
+
+        #invite-user .modal-body .form-label {
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        #invite-user .modal-body .form-invite {
+            width: 80%;
+            padding: 6px 12px;
+            background-color: #eeeeee;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            float: left;
+            margin-right: 10px;
+        }
+
+        #invite-user .modal-body .msg-modal-style {
+            background-color: #7dd383;
+            margin-top: 10px;
+            padding: 6px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        #invite-user .modal-body .modal-flash {
+            position: absolute;
+            top: 53px;
+            right: 74px;
+            z-index: 999;
+        }
+
+        /* end modal */
+
+        .en-footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+
+    <style>
+        .layout-fullscreen {
+            margin-top: 0;
+        }
+
+        .labdoc-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px;
+            color: #666;
+            background: #fff;
+            font-size: 16px;
+            border-bottom: solid 1px #eee;
+            z-index: 10;
+        }
+
+        .labdoc-header a {
+            color: #666;
+        }
+
+        .labdoc-header a:hover,
+        .labdoc-header a:focus {
+            color: #08bf91;;
+            text-decoration: none;
+        }
+
+        .labdoc-nav {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 20%;
+            height: calc(100% - 60px);
+            padding: 0 10px;
+            background-color: #f7f7f7;
+            background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+            background-repeat: no-repeat;
+            background-position: 50% calc(100% - 20px);
+            overflow: auto;
+        }
+
+        .labdoc-nav-content {
+            margin-left: 10px;
+        }
+
+        .labdoc-nav h2 {
+            padding: 5px 0;
+            font-size: 16px;
+        }
+
+        .labdoc-nav h3 {
+            padding: 5px 0;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .labdoc-nav h2 a,
+        .labdoc-nav h3 a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .labdoc-nav h2:hover a,
+        .labdoc-nav h2:focus a,
+        .labdoc-nav h3:hover a,
+        .labdoc-nav h3:focus a,
+        .labdoc-nav h2.active a,
+        .labdoc-nav h3.active a {
+            color: #08bf91;
+            text-decoration: none;
+        }
+
+        .labdoc-content-container {
+            float: right;
+            width: 100%;
+            padding: 0;
+            margin-top: 60px;
+        }
+
+        .labdoc-content {
+            padding: 0 10px 20px;
+            background: #fff;
+        }
+
+        .lab-btns {
+            display: none;
+            position: fixed;
+            top: 30%;
+            right: 10px;
+            width: 56px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .lab-btns div {
+            margin-bottom: 4px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.20);
+        }
+
+        .lab-btns a {
+            display: block;
+            padding: 0 2px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .lab-btns a:hover,
+        .lab-btns a:focus {
+            text-decoration: none;
+        }
+
+        .lab-btns img {
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .lab-btns a img {
+            padding: 11px 0;
+        }
+
+        .lab-btns span {
+            display: none;
+            color: #08bf91;
+        }
+
+        .lab-btns a:hover img {
+            display: none;
+        }
+
+        .lab-btns a:hover span {
+            display: block;
+            width: 52px;
+            height: 52px;
+            padding-top: 8px;
+            text-align: center;
+        }
+
+        .labinfo {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 20%;
+            padding: 5px 20px;
+            background: cornsilk;
+            z-index: 10;
+        }
+
+        .labinfo-header {
+            margin-bottom: 20px;
+        }
+
+        .labinfo-body div {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .labinfo-body div {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .labinfo-body a {
+            margin: 10px 0;
+        }
+
+        .left-time a {
+            position: relative;
+            bottom: 1px;
+            padding: 4px 10px;
+            margin-left: 4px;
+            color: #fff;
+            background: #f66;
+            font-size: 14px;
+        }
+
+        .left-time a:hover,
+        .left-time a:focus {
+            color: #fff;
+        }
+
+        .labdoc-page,
+        .labdoc-page:focus,
+        .labdoc-page:hover {
+            padding: 20px;
+            color: #08bf91;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .course-warning {
+            width: 40%;
+            margin: 10px auto;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .labdoc-nav,
+            .lab-btns {
+                display: block;
+            }
+
+            .labdoc-content-container {
+                width: 80%;
+            }
+
+            .labdoc-content {
+                padding: 0 100px 20px;
+            }
+        }
+    </style>
+
+
+    <style id="ace_editor.css">.ace_editor {
+        position: relative;
+        overflow: hidden;
+        font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+        direction: ltr;
+        text-align: left;
+    }
+
+    .ace_scroller {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        bottom: 0;
+        background-color: inherit;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: text;
+    }
+
+    .ace_content {
+        position: absolute;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        min-width: 100%;
+    }
+
+    .ace_dragging .ace_scroller:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: '';
+        background: rgba(250, 250, 250, 0.01);
+        z-index: 1000;
+    }
+
+    .ace_dragging.ace_dark .ace_scroller:before {
+        background: rgba(0, 0, 0, 0.01);
+    }
+
+    .ace_selecting, .ace_selecting * {
+        cursor: text !important;
+    }
+
+    .ace_gutter {
+        position: absolute;
+        overflow: hidden;
+        width: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        cursor: default;
+        z-index: 4;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .ace_gutter-active-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    .ace_scroller.ace_scroll-left {
+        box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;
+    }
+
+    .ace_gutter-cell {
+        padding-left: 19px;
+        padding-right: 6px;
+        background-repeat: no-repeat;
+    }
+
+    .ace_gutter-cell.ace_error {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");
+        background-repeat: no-repeat;
+        background-position: 2px center;
+    }
+
+    .ace_gutter-cell.ace_warning {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");
+        background-position: 2px center;
+    }
+
+    .ace_gutter-cell.ace_info {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");
+        background-position: 2px center;
+    }
+
+    .ace_dark .ace_gutter-cell.ace_info {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");
+    }
+
+    .ace_scrollbar {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 6;
+    }
+
+    .ace_scrollbar-inner {
+        position: absolute;
+        cursor: text;
+        left: 0;
+        top: 0;
+    }
+
+    .ace_scrollbar-v {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        top: 0;
+    }
+
+    .ace_scrollbar-h {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        left: 0;
+    }
+
+    .ace_print-margin {
+        position: absolute;
+        height: 100%;
+    }
+
+    .ace_text-input {
+        position: absolute;
+        z-index: 0;
+        width: 0.5em;
+        height: 1em;
+        opacity: 0;
+        background: transparent;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        resize: none;
+        outline: none;
+        overflow: hidden;
+        font: inherit;
+        padding: 0 1px;
+        margin: 0 -1px;
+        text-indent: -1em;
+        -ms-user-select: text;
+        -moz-user-select: text;
+        -webkit-user-select: text;
+        user-select: text;
+        white-space: pre !important;
+    }
+
+    .ace_text-input.ace_composition {
+        background: inherit;
+        color: inherit;
+        z-index: 1000;
+        opacity: 1;
+        text-indent: 0;
+    }
+
+    .ace_layer {
+        z-index: 1;
+        position: absolute;
+        overflow: hidden;
+        word-wrap: normal;
+        white-space: pre;
+        height: 100%;
+        width: 100%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+
+    .ace_gutter-layer {
+        position: relative;
+        width: auto;
+        text-align: right;
+        pointer-events: auto;
+    }
+
+    .ace_text-layer {
+        font: inherit !important;
+    }
+
+    .ace_cjk {
+        display: inline-block;
+        text-align: center;
+    }
+
+    .ace_cursor-layer {
+        z-index: 4;
+    }
+
+    .ace_cursor {
+        z-index: 4;
+        position: absolute;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-left: 2px solid;
+        transform: translatez(0);
+    }
+
+    .ace_slim-cursors .ace_cursor {
+        border-left-width: 1px;
+    }
+
+    .ace_overwrite-cursors .ace_cursor {
+        border-left-width: 0;
+        border-bottom: 1px solid;
+    }
+
+    .ace_hidden-cursors .ace_cursor {
+        opacity: 0.2;
+    }
+
+    .ace_smooth-blinking .ace_cursor {
+        -webkit-transition: opacity 0.18s;
+        transition: opacity 0.18s;
+    }
+
+    .ace_editor.ace_multiselect .ace_cursor {
+        border-left-width: 1px;
+    }
+
+    .ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {
+        position: absolute;
+        z-index: 3;
+    }
+
+    .ace_marker-layer .ace_selection {
+        position: absolute;
+        z-index: 5;
+    }
+
+    .ace_marker-layer .ace_bracket {
+        position: absolute;
+        z-index: 6;
+    }
+
+    .ace_marker-layer .ace_active-line {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .ace_marker-layer .ace_selected-word {
+        position: absolute;
+        z-index: 4;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .ace_line .ace_fold {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 11px;
+        margin-top: -2px;
+        vertical-align: middle;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="), url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");
+        background-repeat: no-repeat, repeat-x;
+        background-position: center center, top left;
+        color: transparent;
+        border: 1px solid black;
+        border-radius: 2px;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+    .ace_dark .ace_fold {
+    }
+
+    .ace_fold:hover {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="), url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");
+    }
+
+    .ace_tooltip {
+        background-color: #FFF;
+        background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));
+        background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+        border: 1px solid gray;
+        border-radius: 1px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        color: black;
+        max-width: 100%;
+        padding: 3px 4px;
+        position: fixed;
+        z-index: 999999;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        cursor: default;
+        white-space: pre;
+        word-wrap: break-word;
+        line-height: normal;
+        font-style: normal;
+        font-weight: normal;
+        letter-spacing: normal;
+        pointer-events: none;
+    }
+
+    .ace_folding-enabled
+
+    &
+    gt
+
+    ;
+    .ace_gutter-cell {
+        padding-right: 13px;
+    }
+
+    .ace_fold-widget {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 0 -12px 0 1px;
+        display: none;
+        width: 11px;
+        vertical-align: top;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 3px;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+
+    .ace_folding-enabled .ace_fold-widget {
+        display: inline-block;
+    }
+
+    .ace_fold-widget.ace_end {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");
+    }
+
+    .ace_fold-widget.ace_closed {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");
+    }
+
+    .ace_fold-widget:hover {
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+    }
+
+    .ace_fold-widget:active {
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .ace_dark .ace_fold-widget {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");
+    }
+
+    .ace_dark .ace_fold-widget.ace_end {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");
+    }
+
+    .ace_dark .ace_fold-widget.ace_closed {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");
+    }
+
+    .ace_dark .ace_fold-widget:hover {
+        box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .ace_dark .ace_fold-widget:active {
+        box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .ace_fold-widget.ace_invalid {
+        background-color: #FFB4B4;
+        border-color: #DE5555;
+    }
+
+    .ace_fade-fold-widgets .ace_fold-widget {
+        -webkit-transition: opacity 0.4s ease 0.05s;
+        transition: opacity 0.4s ease 0.05s;
+        opacity: 0;
+    }
+
+    .ace_fade-fold-widgets:hover .ace_fold-widget {
+        -webkit-transition: opacity 0.05s ease 0.05s;
+        transition: opacity 0.05s ease 0.05s;
+        opacity: 1;
+    }
+
+    .ace_underline {
+        text-decoration: underline;
+    }
+
+    .ace_bold {
+        font-weight: bold;
+    }
+
+    .ace_nobold .ace_bold {
+        font-weight: normal;
+    }
+
+    .ace_italic {
+        font-style: italic;
+    }
+
+    .ace_error-marker {
+        background-color: rgba(255, 0, 0, 0.2);
+        position: absolute;
+        z-index: 9;
+    }
+
+    .ace_highlight-marker {
+        background-color: rgba(255, 255, 0, 0.2);
+        position: absolute;
+        z-index: 8;
+    }
+
+    .ace_br1 {
+        border-top-left-radius: 3px;
+    }
+
+    .ace_br2 {
+        border-top-right-radius: 3px;
+    }
+
+    .ace_br3 {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .ace_br4 {
+        border-bottom-right-radius: 3px;
+    }
+
+    .ace_br5 {
+        border-top-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .ace_br6 {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .ace_br7 {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .ace_br8 {
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br9 {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br10 {
+        border-top-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br11 {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br12 {
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br13 {
+        border-top-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br14 {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .ace_br15 {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    /*# sourceURL=ace/css/ace_editor.css */</style>
+    <style id="ace-tm">.ace-tm .ace_gutter {
+        background: #f0f0f0;
+        color: #333;
+    }
+
+    .ace-tm .ace_print-margin {
+        width: 1px;
+        background: #e8e8e8;
+    }
+
+    .ace-tm .ace_fold {
+        background-color: #6B72E6;
+    }
+
+    .ace-tm {
+        background-color: #FFFFFF;
+        color: black;
+    }
+
+    .ace-tm .ace_cursor {
+        color: black;
+    }
+
+    .ace-tm .ace_invisible {
+        color: rgb(191, 191, 191);
+    }
+
+    .ace-tm .ace_storage, .ace-tm .ace_keyword {
+        color: blue;
+    }
+
+    .ace-tm .ace_constant {
+        color: rgb(197, 6, 11);
+    }
+
+    .ace-tm .ace_constant.ace_buildin {
+        color: rgb(88, 72, 246);
+    }
+
+    .ace-tm .ace_constant.ace_language {
+        color: rgb(88, 92, 246);
+    }
+
+    .ace-tm .ace_constant.ace_library {
+        color: rgb(6, 150, 14);
+    }
+
+    .ace-tm .ace_invalid {
+        background-color: rgba(255, 0, 0, 0.1);
+        color: red;
+    }
+
+    .ace-tm .ace_support.ace_function {
+        color: rgb(60, 76, 114);
+    }
+
+    .ace-tm .ace_support.ace_constant {
+        color: rgb(6, 150, 14);
+    }
+
+    .ace-tm .ace_support.ace_type, .ace-tm .ace_support.ace_class {
+        color: rgb(109, 121, 222);
+    }
+
+    .ace-tm .ace_keyword.ace_operator {
+        color: rgb(104, 118, 135);
+    }
+
+    .ace-tm .ace_string {
+        color: rgb(3, 106, 7);
+    }
+
+    .ace-tm .ace_comment {
+        color: rgb(76, 136, 107);
+    }
+
+    .ace-tm .ace_comment.ace_doc {
+        color: rgb(0, 102, 255);
+    }
+
+    .ace-tm .ace_comment.ace_doc.ace_tag {
+        color: rgb(128, 159, 191);
+    }
+
+    .ace-tm .ace_constant.ace_numeric {
+        color: rgb(0, 0, 205);
+    }
+
+    .ace-tm .ace_variable {
+        color: rgb(49, 132, 149);
+    }
+
+    .ace-tm .ace_xml-pe {
+        color: rgb(104, 104, 91);
+    }
+
+    .ace-tm .ace_entity.ace_name.ace_function {
+        color: #0000A2;
+    }
+
+    .ace-tm .ace_heading {
+        color: rgb(12, 7, 255);
+    }
+
+    .ace-tm .ace_list {
+        color: rgb(185, 6, 144);
+    }
+
+    .ace-tm .ace_meta.ace_tag {
+        color: rgb(0, 22, 142);
+    }
+
+    .ace-tm .ace_string.ace_regex {
+        color: rgb(255, 0, 0)
+    }
+
+    .ace-tm .ace_marker-layer .ace_selection {
+        background: rgb(181, 213, 255);
+    }
+
+    .ace-tm.ace_multiselect .ace_selection.ace_start {
+        box-shadow: 0 0 3px 0px white;
+    }
+
+    .ace-tm .ace_marker-layer .ace_step {
+        background: rgb(252, 255, 0);
+    }
+
+    .ace-tm .ace_marker-layer .ace_stack {
+        background: rgb(164, 229, 101);
+    }
+
+    .ace-tm .ace_marker-layer .ace_bracket {
+        margin: -1px 0 0 -1px;
+        border: 1px solid rgb(192, 192, 192);
+    }
+
+    .ace-tm .ace_marker-layer .ace_active-line {
+        background: rgba(0, 0, 0, 0.07);
+    }
+
+    .ace-tm .ace_gutter-active-line {
+        background-color: #dcdcdc;
+    }
+
+    .ace-tm .ace_marker-layer .ace_selected-word {
+        background: rgb(250, 250, 255);
+        border: 1px solid rgb(200, 200, 250);
+    }
+
+    .ace-tm .ace_indent-guide {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+    }
+
+    /*# sourceURL=ace/css/ace-tm */</style>
+    <style>    .error_widget_wrapper {
+        background: inherit;
+        color: inherit;
+        border: none
+    }
+
+    .error_widget {
+        border-top: solid 2px;
+        border-bottom: solid 2px;
+        margin: 5px 0;
+        padding: 10px 40px;
+        white-space: pre-wrap;
+    }
+
+    .error_widget.ace_error, .error_widget_arrow.ace_error {
+        border-color: #ff5a5a
+    }
+
+    .error_widget.ace_warning, .error_widget_arrow.ace_warning {
+        border-color: #F1D817
+    }
+
+    .error_widget.ace_info, .error_widget_arrow.ace_info {
+        border-color: #5a5a5a
+    }
+
+    .error_widget.ace_ok, .error_widget_arrow.ace_ok {
+        border-color: #5aaa5a
+    }
+
+    .error_widget_arrow {
+        position: absolute;
+        border: solid 5px;
+        border-top-color: transparent !important;
+        border-right-color: transparent !important;
+        border-left-color: transparent !important;
+        top: -5px;
+    }</style>
+    <style type="text/css">
+        .sidebox-my-contest-history[data-v-530b5260] {
+            overflow: hidden;
+        }
+
+        .sidebox-my-contest-record[data-v-530b5260] {
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .sidebox-my-contest-record .pull-left[data-v-530b5260] {
+            width: 39%;
+            margin-right: 1%;
+            color: #666;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebox-my-contest-record .pull-right[data-v-530b5260] {
+            width: 60%;
+        }
+
+        .sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+            position: relative;
+            bottom: 1px;
+        }
+
+        .sidebox-record-time[data-v-530b5260] {
+            display: inline-block;
+            margin-left: 4px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .sidebox-footer[data-v-530b5260] {
+            text-align: right;
+        }
+
+        .sidebox-footer a[data-v-530b5260] {
+            font-size: 14px;
+        }
+    </style>
+    <style type="text/css">
+        .fade-enter-active[data-v-07a2dd56],
+        .fade-leave-active[data-v-07a2dd56] {
+            transition: opacity .5s;
+        }
+
+        .fade-enter[data-v-07a2dd56],
+        .fade-leave-active[data-v-07a2dd56] {
+            opacity: 0;
+        }
+
+        .header-message[data-v-07a2dd56] {
+            position: relative;
+            margin-right: 5px;
+        }
+
+        .header-message
+
+        &
+        gt
+
+        ;
+        a[data-v-07a2dd56] {
+            position: relative;
+        }
+
+        .header-message
+
+        &
+        gt
+
+        ;
+        a .fa-bell-o[data-v-07a2dd56] {
+            font-size: 22px;
+            margin-top: -3px;
+        }
+
+        .popover[data-v-07a2dd56] {
+            display: block;
+            position: absolute;
+            top: 50px;
+            left: -66px;
+            width: 180px;
+            background: #fff;
+        }
+
+        .popover .msg-content[data-v-07a2dd56] {
+            padding: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .popover .msg-content a[data-v-07a2dd56] {
+            color: #f66;
+        }
+
+        .popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+            text-decoration: none;
+        }
+
+        .mark[data-v-07a2dd56] {
+            position: absolute;
+            top: 18px;
+            right: 15px;
+            width: 1px;
+            height: 1px;
+            background: #f66;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .mark[data-v-07a2dd56] {
+                top: 14px;
+                right: calc(50% - 8px);
+            }
+        }
+    </style>
+    <style type="text/css">
+        .hidden[data-v-815c5224] {
+            display: none;
+        }
+
+        .show[data-v-815c5224] {
+            display: block;
+        }
+
+        .fade-enter-active[data-v-815c5224],
+        .fade-leave-active[data-v-815c5224] {
+            transition: opacity .5s;
+        }
+
+        .fade-enter[data-v-815c5224],
+        .fade-leave-active[data-v-815c5224] {
+            opacity: 0;
+        }
+
+        .header-userbox a[data-v-815c5224] {
+            display: block;
+            padding: 0;
+        }
+
+        .header-avatar[data-v-815c5224] {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        .vip-icon[data-v-815c5224] {
+            position: absolute;
+            bottom: 0;
+            right: calc(50% - 30px);
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .vip-icon[data-v-815c5224] {
+                right: 0;
+            }
+        }
+
+        .user[data-v-815c5224] {
+            display: block;
+            position: absolute;
+            top: 50px;
+            left: -150px;
+            width: 300px;
+            height: 320px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 4px 1px #ccc;
+            z-index: 999 !important;
+        }
+
+        .user[data-v-815c5224]:before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: 0;
+            width: 220px;
+            height: 50px;
+        }
+
+        .user.popover
+
+        &
+        gt
+
+        ;
+        .arrow[data-v-815c5224] {
+            left: 63%;
+        }
+
+        .user-info[data-v-815c5224] {
+            overflow: hidden;
+        }
+
+        .user-info a[data-v-815c5224] {
+            float: left;
+        }
+
+        .user-info a img[data-v-815c5224] {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .username[data-v-815c5224] {
+            position: relative;
+        }
+
+        .username
+
+        &
+        gt
+
+        ;
+        img[data-v-815c5224] {
+            width: 20px;
+            position: absolute;
+            left: -30px;
+            bottom: 10px;
+        }
+
+        .username
+
+        &
+        gt
+
+        ;
+        span[data-v-815c5224] {
+            display: inline-block;
+            max-width: 150px;
+            color: #666;
+            font-size: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .username
+
+        &
+        gt
+
+        ;
+        span.user-level[data-v-815c5224] {
+            color: #fec42d;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .username
+
+        &
+        gt
+
+        ;
+        p[data-v-815c5224] {
+            color: #A4A4A4;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 170px;
+            text-overflow: ellipsis;
+        }
+
+        .marked-words[data-v-815c5224] {
+            width: 100%;
+            color: #A4A4A4 !important;
+            font-size: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            position: absolute;
+            top: 130px;
+            left: 0;
+        }
+
+        .marked-words
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224] {
+            color: #A4A4A4 !important;
+            font-size: 12px;
+        }
+
+        .marked-words
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224]:hover, .marked-words
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224]:focus {
+            text-decoration: none;
+            color: #A4A4A4;
+        }
+
+        .start-experiment
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224] {
+            display: inline-block;
+            width: 240px;
+            height: 35px;
+            line-height: 35px;
+            background-color: #08BF91;
+            border-radius: 100px;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .start-experiment
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224]:hover, .start-experiment
+
+        &
+        gt
+
+        ;
+        a[data-v-815c5224]:focus {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .user-links[data-v-815c5224] {
+            margin-top: 30px;
+        }
+
+        .user-links .row
+
+        &
+        gt
+
+        ;
+        div[data-v-815c5224] {
+            padding-right: 0;
+            padding-left: 10px;
+        }
+
+        .user-links .row a[data-v-815c5224],
+        .user-links .row .invite-user-btn[data-v-815c5224] {
+            width: 115px;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px 0 10px;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            *display: inline;
+            *zoom: 1;
+        }
+
+        .user-links .row a[data-v-815c5224]:focus, .user-links .row a[data-v-815c5224]:hover,
+        .user-links .row .invite-user-btn[data-v-815c5224]:focus,
+        .user-links .row .invite-user-btn[data-v-815c5224]:hover {
+            text-decoration: none;
+        }
+
+        .user-links .row a[data-v-815c5224]:hover,
+        .user-links .row .invite-user-btn[data-v-815c5224]:hover {
+            background: #eee;
+        }
+
+        .user-links .invite-user-btn[data-v-815c5224] {
+            margin: 0 !important;
+        }
+
+        .user-links a.member-index[data-v-815c5224] {
+            border: 1px solid #f66;
+            color: #f66;
+        }
+
+        .user-links a.member-index[data-v-815c5224]:hover, .user-links a.member-index[data-v-815c5224]:focus {
+            background: #f66;
+            color: #fff;
+        }
+
+        .feedback[data-v-815c5224] {
+            font-size: 12px;
+            color: #C6C6C6;
+            margin-top: 35px;
+            margin-left: calc(50% - 96px);
+        }
+
+        .friendly-link[data-v-815c5224] {
+            margin-top: 10px;
+        }
+
+        .friendly-link .invite-user[data-v-815c5224] {
+            width: 240px;
+            color: #C6C6C6;
+            font-size: 12px;
+        }
+
+        .friendly-link .invite-user img[data-v-815c5224] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .friendly-link .invite-user a[data-v-815c5224] {
+            display: inline-block;
+            width: 18px;
+        }
+
+        .log-out[data-v-815c5224] {
+            display: block;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+            padding-top: 20px;
+            width: 100%;
+            text-align: right;
+        }
+
+        .log-out a[data-v-815c5224] {
+            display: inline-block;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .log-out a[data-v-815c5224]:hover, .log-out a[data-v-815c5224]:focus {
+            text-decoration: none;
+            color: #999;
+        }
+
+        .invite-user-link[data-v-815c5224] {
+            display: none;
+        }
+
+        .invite-user-msg[data-v-815c5224] {
+            position: absolute;
+            bottom: -20px;
+        }
+
+        .no_member_vm[data-v-815c5224] {
+            background: #ddd !important;
+        }
+
+        .no_member_vm .memberVmIcon[data-v-815c5224] {
+            margin-left: 5px;
+        }
+
+        .is-member[data-v-815c5224] {
+            cursor: default;
+        }
+    </style>
+    <style type="text/css">
+        .header-learn-info[data-v-33ac7940] {
+            float: right;
+            width: 100%;
+            padding: 23.5px 10px;
+            margin: 0;
+            position: relative;
+        }
+
+        .header-learn-info
+
+        &
+        gt
+
+        ;
+        span[data-v-33ac7940] {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .header-learn-info
+
+        &
+        gt
+
+        ;
+        span img[data-v-33ac7940] {
+            transform: rotate(-90deg);
+        }
+
+        .header-learn-info
+
+        &
+        gt
+
+        ;
+        span[data-v-33ac7940]:hover {
+            cursor: pointer;
+        }
+
+        .home-page[data-v-33ac7940] {
+            color: #666;
+        }
+
+        .home-page[data-v-33ac7940]:hover {
+            text-decoration: none;
+            color: #08bf91;
+        }
+
+        @media (min-width: 768px) {
+            .header-learn-info[data-v-33ac7940] {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-learn-info[data-v-33ac7940] {
+                display: none;
+            }
+        }
+
+        .fade-enter-active[data-v-33ac7940],
+        .fade-leave-active[data-v-33ac7940] {
+            transition: opacity .5s;
+        }
+
+        .fade-enter[data-v-33ac7940],
+        .fade-leave-active[data-v-33ac7940] {
+            opacity: 0;
+        }
+
+        .learninfo-box[data-v-33ac7940] {
+            display: block;
+            width: 223px;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            padding: 20px;
+            left: 35px;
+            background: #fff;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .learninfo-box .lab-running
+
+        &
+        gt
+
+        ;
+        span[data-v-33ac7940] {
+            font-size: 14px;
+            color: #a4a4a4;
+        }
+
+        .learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+            font-size: 14px;
+            padding: 10px 0;
+        }
+
+        .learninfo-box .lab-running .lab-running-name
+
+        &
+        gt
+
+        ;
+        span[data-v-33ac7940] {
+            max-width: 60%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
+
+        .learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+            background: #08bf91;
+            font-size: 12px;
+            color: #fff;
+            border: none;
+            padding: 2px 12px;
+            margin-top: -1px;
+        }
+
+        .learninfo-box .learn-records
+
+        &
+        gt
+
+        ;
+        span[data-v-33ac7940] {
+            font-size: 14px;
+            color: #a4a4a4;
+        }
+
+        .learninfo-box .learn-records .records-list[data-v-33ac7940] {
+            margin-top: 10px;
+        }
+
+        .learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+            display: inline-block;
+            font-size: 14px;
+            color: #666;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 10px;
+        }
+
+        .learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+            text-decoration: none;
+            background-color: #f5f5f5;
+        }
+
+        .learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+            text-decoration: none;
+        }
+
+        @media (min-width: 768px) {
+            .learninfo-box[data-v-33ac7940] {
+                left: -30px;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+    <style type="text/css">
+        .side-new-contest .sidebox-body[data-v-7d67fa2d] {
+            overflow: hidden;
+        }
+
+        .side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+            position: relative;
+            top: 4px;
+            color: #3a3a3a;
+            font-size: 14px;
+        }
+
+        .side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+            padding: 2px 10px;
+            color: #08bf91;
+            font-size: 14px;
+            border: solid 1px #08bf91;
+        }
+
+        .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+            color: #fff;
+            background: #09bf91;
+        }
+    </style>
+    <style type="text/css">
+        a[data-v-9b3c8994] {
+            display: inline-block;
+        }
+
+        .fa[data-v-9b3c8994] {
+            padding: 4px;
+            color: #274a59;
+            background: #fff;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .fa[data-v-9b3c8994]:hover {
+            color: #ec5353;
+        }
+
+        .pull-left[data-v-9b3c8994] {
+            margin-left: 10px;
+        }
+
+        /*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?0ae84d02 */
+        /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzBhZTg0ZDAyIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFpQ0E7SUFDQSxzQkFBQTtDQUNBO0FBQ0E7SUFDQSxhQUFBO0lBQ0EsZUFBQTtJQUNBLGlCQUFBO0lBQ0EsZ0JBQUE7SUFDQSxtQkFBQTtDQUNBO0FBQ0E7SUFDQSxlQUFBO0NBQ0E7QUFDQTtJQUNBLGtCQUFBO0NBQ0EiLCJmaWxlIjoid2VpYm8udnVlIiwic291cmNlc0NvbnRlbnQiOlsiPHRlbXBsYXRlPlxuPGEgOmhyZWY9XCJocmVmXCIgOmNsYXNzPVwieyAnYnRuIGJ0bi1wcmltYXJ5JzogaXNCdG4gLCAncHVsbC1sZWZ0JzogaXNMZWZ0fVwiIHRhcmdldD1cIl9ibGFua1wiPlxuICAgIDxzcGFuIHYtaWY9XCJpc0J0blwiPuWIhuS6q+WIsOW+ruWNmjwvc3Bhbj5cbiAgICA8aW1nIDpzcmM9XCJpY29uXCIgYWx0PVwiXCI+XG48L2E+XG48L3RlbXBsYXRlPlxuXG48c2NyaXB0PlxuZXhwb3J0IGRlZmF1bHQge1xuICAgIHByb3BzOiBbJ2lzQnRuJywgJ3BhdGgnLCAndGl0bGUnLCAncGljJywgJ2ljb24nLCAnaXNMZWZ0J10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgIH0sXG4gICAgICAgICAgICB3ZWlib1VybDogJ2h0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPWh0dHBzOi8vd3d3LnNoaXlhbmxvdS5jb20nLFxuICAgICAgICB9O1xuICAgIH0sXG4gICAgbW91bnRlZCgpIHtcbiAgICAgICAgdGhpcy5ocmVmID0gYCR7dGhpcy53ZWlib1VybH0ke3RoaXMucGF0aH1gXG4gICAgICAgICAgICArIGAmdGl0bGU9JHtlbmNvZGVVUklDb21wb25lbnQodGhpcy5wYXJhbXMudGl0bGUpfWBcbiAgICAgICAgICAgICsgYCZhcHBrZXk9JHt0aGlzLnBhcmFtcy5hcHBrZXl9YFxuICAgICAgICAgICAgKyBgJnBpYz0ke3RoaXMucGFyYW1zLnBpYy5qb2luKCd8fCcpfWBcbiAgICAgICAgICAgICsgYCZzZWFyY2hQaWM9JHt0aGlzLnBhcmFtcy5zZWFyY2hQaWN9YDtcbiAgICB9XG59XG48L3NjcmlwdD5cblxuPHN0eWxlIHNjb3BlZD5cbmEge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style>
+    <style type="text/css">
+        .search-autocomplete[data-v-72bea96c] {
+            position: absolute;
+            top: 35px;
+            left: 1px;
+            width: 195px;
+            padding: 4px;
+            border: solid 1px #ddd;
+            border-top: none;
+            background: #fff;
+            z-index: 1000;
+        }
+
+        .search-autocomplete a[data-v-72bea96c] {
+            display: block;
+            padding: 6px 8px;
+            color: #4c5157;
+            font-size: 13px;
+        }
+
+        .search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+            color: #fff;
+            background: #0c9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div class="layout layout-margin-top layout-fullscreen">
+    <div class="container">
+
+
+    </div>
+
+    <div class="lab-btns">
+
+
+        <div>
+            <img src="https://static.shiyanlou.com/img/best-study-way.png">
+            <a class="  lab-item-start " data-mobile-url="/courses/document/128" data-url="/courses/start/128"
+               data-next="/courses/running">
+                <img src="https://static.shiyanlou.com/img/labdoc-start.png">
+                <span>开始<br>实验</span>
+            </a>
+        </div>
+
+        <div>
+            <a data-toggle="modal" href="#askquestion">
+                <img src="https://static.shiyanlou.com/img/labdoc-question.png">
+                <span>我要<br>提问</span>
+            </a>
+        </div>
+    </div>
+    <div class="labdoc-header">
+        <a href="/courses/11">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+            Go语言编程
+        </a>
+
+    </div>
+    <div class="labdoc-nav">
+        <div class="labdoc-nav-content">
+            <h2>
+                <a href="#labdoc-header-0">一、实验介绍</a>
+            </h2>
+
+            <h3>
+                <a href="#labdoc-header-1">1.1 实验内容</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-2">1.2 实验知识点</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-3">1.3 实验环境</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-4">1.4 适合人群</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-5">1.5 代码获取</a>
+            </h3>
+
+            <h2>
+                <a href="#labdoc-header-6">二. Go语言语句基础</a>
+            </h2>
+
+            <h3>
+                <a href="#labdoc-header-7">1. 类型转换</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-8">2. 类型断言</a>
+            </h3>
+
+            <h2>
+                <a href="#labdoc-header-9">三. 分支和for语句</a>
+            </h2>
+
+            <h3>
+                <a href="#labdoc-header-10">1. if 分支</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-11">2. switch分支</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-12">3. for循环语句</a>
+            </h3>
+
+            <h2>
+                <a href="#labdoc-header-13">四. 函数</a>
+            </h2>
+
+            <h2>
+                <a href="#labdoc-header-14">五. 通信(channel)和并发(goroutine)语句</a>
+            </h2>
+
+            <h3>
+                <a href="#labdoc-header-15">1. 语法</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-16">2. select语句</a>
+            </h3>
+
+            <h2>
+                <a href="#labdoc-header-17">六. defer, panic和recover</a>
+            </h2>
+
+            <h3>
+                <a href="#labdoc-header-18">1. defer</a>
+            </h3>
+
+            <h3>
+                <a href="#labdoc-header-19">2. panic和recover</a>
+            </h3>
+
+            <h2>
+                <a href="#labdoc-header-20">作业</a>
+            </h2>
+        </div>
+
+    </div>
+    <div class="labdoc-content-container">
+        <div class="markdown-body labdoc-content">
+            <div><h1 id="go-">Go 语言过程式编程</h1>
+                <h2 id="labdoc-header-0">一、实验介绍</h2>
+                <h3 id="labdoc-header-1">1.1 实验内容</h3>
+                <p>这节讲解Go语言的各种语句，控制结构，以及如何使用这些语句进行过程式编程，课程的内容比较多，但是都比较重要，在编写Go程序的过程中会频繁使用到。</p>
+                <h3 id="labdoc-header-2">1.2 实验知识点</h3>
+                <ul>
+                    <li>Go 语言中的 类型转换 和 类型断言</li>
+                    <li>Go 语言中的 分支 和 for 语句</li>
+                    <li>Go 语言中的 函数 和 goroutine</li>
+                </ul>
+                <h3 id="labdoc-header-3">1.3 实验环境</h3>
+                <ul>
+                    <li>Xfce 终端</li>
+                    <li>Go 1.2.1</li>
+                </ul>
+                <h3 id="labdoc-header-4">1.4 适合人群</h3>
+                <p>本课程难度为简单，属于初级级别课程，对没有一点Go基础的同学也很友好。</p>
+                <h3 id="labdoc-header-5">1.5 代码获取</h3>
+                <p>本课程所有源代码，可以在XfceTerminal中通过以下方式克隆到实验环境:</p>
+                <pre><code class="hljs php">$ git <span class="hljs-keyword">clone</span> https:<span
+                        class="hljs-comment">//github.com/shiyanlou/Golang_Programming</span>
+</code></pre>
+                <h2 id="labdoc-header-6">二. Go语言语句基础</h2>
+                <p>之所以先学习过程式编程，是因为在Go语言中面向对象编程也是建立在面向过程的基础上的。形式上讲，Go语言需要使用分号(;)
+                    来作为上下文语句的分隔结束符。实际上在前面的代码中我们可以看到在Go语言中很少使用分号，那是因为编译器会自动在需要分号的地方加上分号。但是有两个地方必须使用分号，第一个是需要在一个行中放入一条或多条语句时，或者是在使用原始的
+                    for 循环时。Go语言也支持多重赋值，如<code>a, b = b, a</code>。另外在之前的课程中我们提到过快速声明操作符<code>:=</code>，它的作用是同时在一个语句中声明和赋值一个变量。当<code>:=</code>操作符用于多个逗号分隔的变量时，如果该变量已经存在，则只是简单的修改它的值。但是当<code>:=</code>操作符位于作用域的起始处时，Go语言会创建一个新的变量，不管该变量之前是否存在，如在if或者for语句中。下面有一个例子可以说明:
+                </p>
+                <pre><code class="hljs bash">a, b, c := 2, 3, 5
+<span class="hljs-keyword">for</span> a := 7; a &lt; 8; a++ {
+    fmt.Println(a)
+}
+</code></pre>
+                <p>
+                    以上代码中，先使用<code>:=</code>声明并赋值了三个变量，Go会自动推导出变量的类型。然后再<code>for</code>语句处又一次使用<code>:=</code>操作符声明了变量<code>a</code>。需要注意的地方是，<code>for</code>语句代表了一个新的作用域，所以<code>:=</code>在这里新声明创建了一个变量<code>a</code>，这个变量和之前的变量<code>a</code>是完全不同的两个变量（内存地址不一样），所以是一个影子变量，因为覆盖了外部的同名变量。这是需要注意的一个地方。
+                </p>
+                <h3 id="labdoc-header-7">1. 类型转换</h3>
+                <p>Go语言提供了一种在不同但相互兼容的类型之间相互转换的方式，这种转换非常有用并且是安全的。但是需要注意的是在数值之间进行转换可能造成其他问题，如精度丢失或者错误的结果。以下是类型转换的语法:</p>
+                <ul>
+                    <li><code>resultOfType := Type(expression)</code></li>
+                </ul>
+                <p>几个例子：</p>
+                <pre><code class="hljs cpp">x := int16(<span class="hljs-number">2345</span>)        <span
+                        class="hljs-comment">// 声明一个类型为int16的整数，其值为2345</span>
+y := int32(x)           <span class="hljs-comment">// 将int16类型的整数转换为int32类型</span>
+a := uint16(<span class="hljs-number">6500</span>)       <span class="hljs-comment">// 声明一个类型为uint16类型的整数</span>
+b := int16(x)           <span class="hljs-comment">// 转换为int16类型，虽然能转换成功，但是由于6500超过in16类型的范围，会导致结果错误，b的值为 -536</span>
+</code></pre>
+                <p>另外在Go语言中可以通过<code>type</code>关键字声明类型，如<code>type StringsSlice []string</code>
+                    将[]string（string类型的切片）声明为<code>StringSlice</code>类型。</p>
+                <h3 id="labdoc-header-8">2. 类型断言</h3>
+                <p>说到类型断言就需要先了解下Go语言中的接口。在Go语言中接口是一个自定义类型。它声明了一个或者多个方法。任何实现了这些方法的对象（类型）都满足这个接口。接口是完全抽象的，不能实例化。<code>interface{}</code>类型表示一个空接口，任何类型都满足空接口。也就是说<code>interface{}</code>类型的值可以用于表示任意Go语言类型的值。这里的空接口有点类似于python语言中的object实例。既然<code>interface{}</code>
+                    可以用于表示任意类型，那有的时候我们需要将<code>interface{}</code>类型转换为我们需要的类型，这个操作类型断言。<strong>一般情况下只有我们希望表达式是某种特定类型的值时才使用类型断言</strong>。Go语言中可以使用以下语法：
+                </p>
+                <ul>
+                    <li>resultOfType, boolean := expression.(Type) // 安全的类型断言</li>
+                    <li>resultOfType := expression.(Type) // 非安全的类型断言，失败时程序会产生异常</li>
+                </ul>
+                <p>使用VIM创建源文件<code>type_t.go</code>，输入以下源文件：</p>
+                <pre><code class="hljs cs"><span class="hljs-function">package main
+
+<span class="hljs-title">import</span> (<span class="hljs-params">
+    <span class="hljs-string">"fmt"</span>
+</span>)
+
+func <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+    x := uint16(<span class="hljs-number">65000</span>)
+    y := int16(x) <span class="hljs-comment">// 将 x转换为int16类型</span>
+    fmt.Printf(<span class="hljs-string">"type and value of x is: %T and %d\n"</span>, x, x) <span class="hljs-comment">// %T 格式化指令的作用是输出变量的类型</span>
+    fmt.Printf(<span class="hljs-string">"type and value of y is: %T and %d\n"</span>, y, y)
+
+    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>{} = <span
+                            class="hljs-number">99</span> <span class="hljs-comment">// 创建一个interface{}类型，其值为99</span>
+    <span class="hljs-keyword">var</span> s <span class="hljs-keyword">interface</span>{} = []<span
+                            class="hljs-keyword">string</span>{<span class="hljs-string">"left"</span>, <span
+                            class="hljs-string">"right"</span>}
+    j := i.(<span class="hljs-keyword">int</span>) <span class="hljs-comment">// 我们假设i是兼容int类型，并使用类型断言将其转换为int类型</span>
+    fmt.Printf(<span class="hljs-string">"type and value of j is: %T and %d\n"</span>, j, j)
+
+    <span class="hljs-keyword">if</span> s, ok := s.([]<span class="hljs-keyword">string</span>); ok { <span
+                            class="hljs-comment">// 创建了影子变量，if的作用域中覆盖了外部的变量s</span>
+        fmt.Printf(<span class="hljs-string">"%T -&gt; %q\n"</span>, s, s)
+    }
+}
+</code></pre>
+                <p>运行程序：</p>
+                <pre><code class="hljs coffeescript">$ go run type_t.go
+type <span class="hljs-keyword">and</span> value <span class="hljs-keyword">of</span> x is: uint16 <span
+                            class="hljs-keyword">and</span> <span class="hljs-number">65000</span>
+type <span class="hljs-keyword">and</span> value <span class="hljs-keyword">of</span> y is: int16 <span
+                            class="hljs-keyword">and</span> <span class="hljs-number">-536</span>
+type <span class="hljs-keyword">and</span> value <span class="hljs-keyword">of</span> j is: int <span
+                            class="hljs-keyword">and</span> <span class="hljs-number">99</span>
+[]string -&gt; [<span class="hljs-string">"left"</span> <span class="hljs-string">"right"</span>]
+</code></pre>
+                <h2 id="labdoc-header-9">三. 分支和<code>for</code>语句</h2>
+                <p>Go语言提供了3种分支，即<code>if</code>、<code>switch</code>、<code>select</code>, 其中<code>select</code>用于监听channel（通道）在讲解通道的时候再详细介绍。
+                </p>
+                <h3 id="labdoc-header-10">1. <code>if</code> 分支</h3>
+                <p>语法:</p>
+                <pre><code class="hljs nginx"><span class="hljs-attribute">if</span> optionalStatement1; <span
+                        class="hljs-section">booleanExpression1</span> {
+    <span class="hljs-attribute">block1</span>
+} else if optionalStatement2; <span class="hljs-section">booleanExpression2</span> {
+    <span class="hljs-attribute">block2</span>
+} else {
+    <span class="hljs-attribute">block3</span>
+}
+</code></pre>
+                <p>其中<code>optionalStatement</code>是可选的表达式，真正决定分支走向的是<code>booleanExpression1</code>的值。</p>
+                <h3 id="labdoc-header-11">2. <code>switch</code>分支</h3>
+                <p>Go语言中<code>switch</code>分支既可用于常用的分支就象C语言中的switch一样，也可以用于类型开关，所谓类型开关就是用于判断变量属于什么类型。但是需要注意的是Go语言的<code>switch</code>语句不会自动贯穿，相反，如果想要贯穿需要添加<code>fallthrough</code>语句。表达式开关<code>switch</code>的语法如下：
+                </p>
+                <pre><code class="hljs cpp"><span class="hljs-keyword">switch</span> optionalStatement; optionalExpression {
+    <span class="hljs-keyword">case</span> expression1: block1
+    ...
+    <span class="hljs-keyword">case</span> expressionN: blockN
+    <span class="hljs-keyword">default</span>: blockD
+}
+</code></pre>
+                <p>下面是个例子：</p>
+                <pre><code class="hljs cs"><span class="hljs-keyword">switch</span> {        <span class="hljs-comment">// 没有表达式，默认为True值，匹配分支中值为True的分支</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-keyword">value</span> &lt; minimum:
+        <span class="hljs-keyword">return</span> minimum
+    <span class="hljs-keyword">case</span> <span class="hljs-keyword">value</span> &gt; maximum:
+        <span class="hljs-keyword">return</span> maximum
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>
+}
+</code></pre>
+                <p>在上面的例子中，switch后面没有默认的表达式，这个时候Go语言默认其值为True。</p>
+                <p>在前面我们提到过类型断言，如果我们知道变量的类型就可以使用类型断言，但是当我们知道类型可能是许多类型中的一种时候，我们就可以使用类型开关。其语法如下：</p>
+                <pre><code class="hljs bash">switch optionalStatement; <span class="hljs-built_in">type</span>SwitchGuard {
+    <span class="hljs-keyword">case</span> <span class="hljs-built_in">type</span>1: block1
+    ...
+    <span class="hljs-keyword">case</span> <span class="hljs-built_in">type</span>N: blockN
+    default: blockD
+}
+</code></pre>
+                <h3 id="labdoc-header-12">3. <code>for</code>循环语句</h3>
+                <p>在前面的代码中我们已经遇到很多遍<code>for</code>语句了，它可以遍历数组，切片，映射等类型，也可以用于无限循环。以下是其语法：</p>
+                <pre><code class="hljs ruby"><span class="hljs-keyword">for</span> { <span class="hljs-regexp">//</span> 无限循环
+    block
+}
+
+<span class="hljs-keyword">for</span> booleanExpression { <span class="hljs-regexp">//</span> <span
+                            class="hljs-keyword">while</span>循环，在Go语言中没有<span class="hljs-keyword">while</span>关键字
+
+}
+
+<span class="hljs-keyword">for</span> index, char <span class="hljs-symbol">:</span>= range aString { <span
+                            class="hljs-regexp">//</span> 迭代字符串
+
+}
+
+<span class="hljs-keyword">for</span> item <span class="hljs-symbol">:</span>= range aChannel { <span
+                            class="hljs-regexp">//</span> 迭代通道
+
+}
+</code></pre>
+                <p>说了这么多，让我们进行下练习，创建源文件<code>switch_t.go</code>，输入以下代码：</p>
+                <pre><code class="hljs cs"><span class="hljs-function">package main
+
+<span class="hljs-title">import</span> (<span class="hljs-params">
+    <span class="hljs-string">"fmt"</span>
+</span>)
+
+func <span class="hljs-title">classchecker</span>(<span class="hljs-params">items ...<span class="hljs-keyword">interface</span>{}</span>) </span>{ <span
+                        class="hljs-comment">// 创建一个函数，该函数可以接受任意多的任意类型的参数</span>
+    <span class="hljs-keyword">for</span> i, x := range items {
+        <span class="hljs-keyword">switch</span> x := x.(type) { <span class="hljs-comment">// 创建了影子变量</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-keyword">bool</span>:
+            fmt.Printf(<span class="hljs-string">"param #%d is a bool, value: %t\n"</span>, i, x)
+        <span class="hljs-keyword">case</span> float64:
+            fmt.Printf(<span class="hljs-string">"param #%d is a float64, value: %f\n"</span>, i, x)
+        <span class="hljs-keyword">case</span> <span class="hljs-keyword">int</span>, int8, int16, int32, int64:
+            fmt.Printf(<span class="hljs-string">"param #%d is a int, value: %d\n"</span>, i, x)
+        <span class="hljs-keyword">case</span> <span class="hljs-keyword">uint</span>, uint8, uint16, uint32, uint64:
+            fmt.Printf(<span class="hljs-string">"param #%d is a uint, value: %d\n"</span>, i, x)
+        <span class="hljs-keyword">case</span> nil:
+            fmt.Printf(<span class="hljs-string">"param #%d is a nil\n"</span>, i)
+        <span class="hljs-keyword">case</span> <span class="hljs-keyword">string</span>:
+            fmt.Printf(<span class="hljs-string">"param #%d is a string, value: %s\n"</span>, i, x)
+        <span class="hljs-keyword">default</span>:
+            fmt.Printf(<span class="hljs-string">"param #%d's type is unknow\n"</span>, i)
+        }
+    }
+}
+
+<span class="hljs-function">func <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+    classchecker(<span class="hljs-number">5</span>, <span class="hljs-number">-17.98</span>, <span class="hljs-string">"AIDEN"</span>, nil, <span
+                            class="hljs-literal">true</span>, complex(<span class="hljs-number">1</span>, <span
+                            class="hljs-number">1</span>))
+
+}
+</code></pre>
+                <p>以上代码中我们首先创建了一个接收任意数量任意类型参数的函数，然后使用<code>for ... range aSlice</code>的语法迭代了每一个在切片items中的元素，接着使用了<code>switch</code>类型开关判断了每一个参数的类型，并打印了其值和类型。程序运行输出如下：
+                </p>
+                <pre><code class="hljs ruby">$ go run switch_t.go
+param <span class="hljs-comment">#0 is a int, value: 5</span>
+param <span class="hljs-comment">#1 is a float64, value: -17.980000</span>
+param <span class="hljs-comment">#2 is a string, value: AIDEN</span>
+param <span class="hljs-comment">#3 is a nil</span>
+param <span class="hljs-comment">#4 is a bool, value: true</span>
+param <span class="hljs-comment">#5's type is unknow</span>
+</code></pre>
+                <h2 id="labdoc-header-13">四. 函数</h2>
+                <p>
+                    Go语言可以很方便的自定义函数，其中有特殊的函数<code>main</code>函数。<code>main</code>函数必须出现在main包里，且只能出现一次。当Go程序运行时候会自动调用<code>main</code>函数开始整个程序的执行。<code>main</code>函数不可接收任何参数，也不返回任何结果。
+                </p>
+                <p>Go语言中函数的创建使用以下语法：</p>
+                <pre><code class="hljs cpp"><span class="hljs-function">func <span
+                        class="hljs-title">functionName</span><span class="hljs-params">(optionalParameters)</span> optionalReturnType </span>{
+    block <span class="hljs-comment">// func 函数名(参数列表) 单个返回值类型</span>
+}
+
+<span class="hljs-function">func <span class="hljs-title">functionName</span><span class="hljs-params">(optionalParameters)</span> <span
+        class="hljs-params">(optionalReturnValues)</span> </span>{
+    block <span class="hljs-comment">// func 函数名(参数列表) (返回值1 类型，返回值2 类型)</span>
+}
+</code></pre>
+                <p>函数可以有任意多个参数，也可以有任意多个返回值，返回值可以是命名的。具体的看以下例子：</p>
+                <pre><code class="hljs cs"><span class="hljs-function">func <span class="hljs-title">func1</span>(<span
+                        class="hljs-params">first <span class="hljs-keyword">int</span>, rest ...<span
+                        class="hljs-keyword">int</span></span>) <span class="hljs-keyword">int</span> </span>{
+    <span class="hljs-keyword">return</span> first <span
+                            class="hljs-comment">// func1 函数可以接收任多的int类型参数，并且返回一个int类型的值</span>
+}
+
+<span class="hljs-function">func <span class="hljs-title">func2</span>(<span class="hljs-params">first <span
+        class="hljs-keyword">int</span>, second <span class="hljs-keyword">string</span></span>) (<span
+        class="hljs-params"><span class="hljs-keyword">int</span>, <span
+        class="hljs-keyword">string</span></span>) </span>{
+    <span class="hljs-keyword">return</span> first, second <span class="hljs-comment">// func2 接收两个，函数，并且返回一个int和string类型的值</span>
+}
+
+<span class="hljs-function">func <span class="hljs-title">func3</span>(<span class="hljs-params">first <span
+        class="hljs-keyword">int</span>, second <span class="hljs-keyword">string</span></span>) (<span
+        class="hljs-params">a, b <span class="hljs-keyword">int</span></span>) </span>{
+    a, b = <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-comment">// func3 接收两个参数，并返回两个int类型的值，因为返回值是命名的，所以这里可以缩写</span>
+    <span class="hljs-keyword">return</span>
+}
+</code></pre>
+                <h2 id="labdoc-header-14">五. 通信(channel)和并发(goroutine)语句</h2>
+                <p>在本课程开篇中我们就介绍过Go语言强大的并发功能，这些功能都是建立在通信和并发语句上的。所谓<code>goroutine</code>是程序中与其他<code>goroutine</code>完全独立而并发执行的函数或者方法调用。每一个Go程序都至少有一个<code>goroutine</code>，其中<code>main()</code>函数所在的goroutine是<code>主goroutine</code>。<code>goroutine</code>很像轻量级的线程，它们可以被大批量的创建。那<code>goroutine</code>之间怎么进行通信呢？Go语言中推荐的做法是使用<code>channel</code>(通道)。<code>channel</code>是一个双向的或者单向的通信管道，可以用于两个或者多个<code>goroutine</code>之间进行通信（即接收和发送）数据。
+                </p>
+                <h3 id="labdoc-header-15">1. 语法</h3>
+                <p><code>goroutine</code>使用以下的go语句进行创建:</p>
+                <ul>
+                    <li><strong>go</strong> function(arguments)</li>
+                    <li><strong>go</strong> func(parameters) { block } (arguments)</li>
+                </ul>
+                <p>第二种方式中，我们是创建了一个临时的匿名函数，并马上在<code>goroutine</code>中执行。</p>
+                <p>当调用用<code>go</code>关键字执行函数时，函数会在另一个<code>goroutine</code>上马上执行，并且当前的<code>goroutine</code>的执行会从下一条语句马上恢复。因此执行一个<code>go</code>语句之后，当前程序中至少有两个<code>goroutine</code>在运行。
+                </p>
+                <p>在大多数情况下，<code>goroutine</code>之间需要相互协作，最好的方式是通过<code>channel</code>来交换数据。使用下面语法创建<code>channel</code>（通道）：
+                </p>
+                <ul>
+                    <li>make(chan Type)</li>
+                    <li>make(chan Type, capacity)</li>
+                </ul>
+                <p>
+                    语法中的Type指明了通道能发送的数据类型。其中第一种语法中创建了一个同步的通道，一次只能发送一项数据，它会阻塞直到发送者准备好发送和接收者准备好接收。如果给定了<code>capacity</code>也就是缓冲区容量，在缓冲区容量未满之前通道都是异步无阻塞的。通道支持的操作如下:
+                </p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>语法</th>
+                        <th>含义</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>channel &lt;- value</td>
+                        <td>发送value到通道中，有可能阻塞</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;-channel</td>
+                        <td>从通道中接收数据</td>
+                    </tr>
+                    <tr>
+                        <td>x := &lt;-channel</td>
+                        <td>接收数据并赋值给x</td>
+                    </tr>
+                    <tr>
+                        <td>x, ok := &lt;-channel</td>
+                        <td>功能同上，同时检查通道是否已关闭或者是否为空</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h3 id="labdoc-header-16">2. <code>select</code>语句</h3>
+                <p>在前面的课程中我们提到过select语句，用于监听通道。其语法如下：</p>
+                <pre><code class="hljs cs"><span class="hljs-keyword">select</span> {
+    <span class="hljs-keyword">case</span> sendOrReceviae1: block1
+    ...
+    <span class="hljs-keyword">case</span> sendOrReceiveN: blockN
+    <span class="hljs-keyword">default</span>: blockD
+}
+</code></pre>
+                <p>Go语言会从头至尾的判断每一个<code>case</code>中的发送和接收语句。如果其中任何一条语句可以执行（即没有被阻塞），那就从那些可执行的语句中任意选择一条来使用。如果所有的通道都被阻塞，那可能有两种情况。第一种，如果有<code>default</code>语句，那就会执行<code>default</code>
+                    语句，同时程序的执行会从<code>select</code>语句恢复。第二种，如果没有<code>default</code>语句，则<code>select</code>语句会一直阻塞，直到有一个通道可用
+                </p>
+                <p>下面让我们使用以上的相关知识进行下练习，使用VIM创建源文件<code>goroutine_channel_t.go</code>，输入如下源代码：</p>
+                <pre><code class="hljs cs"><span class="hljs-function">package main
+
+<span class="hljs-title">import</span> (<span class="hljs-params">
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"math/rand"</span>
+</span>)
+
+func <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+    channels := make([]chan <span class="hljs-keyword">bool</span>, <span class="hljs-number">6</span>) <span
+                            class="hljs-comment">// 创建一个类型为chan bool的切片，每一项是能发送bool值的通道</span>
+    <span class="hljs-keyword">for</span> i := range channels { <span class="hljs-comment">// 通过`range`初始化切片</span>
+        channels[i] = make(chan <span class="hljs-keyword">bool</span>)
+    }
+
+    <span class="hljs-function">go <span class="hljs-title">func</span>(<span
+            class="hljs-params"></span>) </span>{ <span class="hljs-comment">// 在其他gouroutine中执行匿名函数</span>
+        <span class="hljs-keyword">for</span> {
+            channels[rand.Intn(<span class="hljs-number">6</span>)] &lt;- <span class="hljs-literal">true</span> <span
+                            class="hljs-comment">// rand.Intn(n int)的用途是产生一个不大于n的随机数</span>
+        }                                  <span class="hljs-comment">// 发送数据到随机出现的通道</span>
+    }()
+
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span
+                            class="hljs-number">36</span>; i++ {
+        <span class="hljs-keyword">var</span> x <span class="hljs-keyword">int</span>
+        <span class="hljs-keyword">select</span> { <span class="hljs-comment">// select 语句当监听到哪个分支的通道未阻塞时就跳转到哪个分支</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">0</span>]:
+            x = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">1</span>]:
+            x = <span class="hljs-number">2</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">2</span>]:
+            x = <span class="hljs-number">3</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">3</span>]:
+            x = <span class="hljs-number">4</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">4</span>]:
+            x = <span class="hljs-number">5</span>
+        <span class="hljs-keyword">case</span> &lt;-channels[<span class="hljs-number">5</span>]:
+            x = <span class="hljs-number">6</span>
+        }
+        fmt.Printf(<span class="hljs-string">"%d "</span>, x)
+    }
+    fmt.Println()
+}
+</code></pre>
+                <p>通过以上注释可以很清晰的看到整个代码的执行流程，下面我们执行代码:</p>
+                <pre><code class="hljs cpp">$ go run <span class="hljs-keyword">goroutine_channel_t</span>.go
+<span class="hljs-number">6</span> <span class="hljs-number">4</span> <span class="hljs-number">6</span> <span
+                            class="hljs-number">6</span> <span class="hljs-number">2</span> <span
+                            class="hljs-number">1</span> <span class="hljs-number">2</span> <span
+                            class="hljs-number">3</span> <span class="hljs-number">5</span> <span
+                            class="hljs-number">1</span> <span class="hljs-number">3</span> <span
+                            class="hljs-number">2</span> <span class="hljs-number">1</span> <span
+                            class="hljs-number">6</span> <span class="hljs-number">5</span> <span
+                            class="hljs-number">3</span> <span class="hljs-number">4</span> <span
+                            class="hljs-number">6</span> <span class="hljs-number">6</span> <span
+                            class="hljs-number">3</span> <span class="hljs-number">6</span> <span
+                            class="hljs-number">1</span> <span class="hljs-number">3</span> <span
+                            class="hljs-number">5</span> <span class="hljs-number">4</span> <span
+                            class="hljs-number">2</span> <span class="hljs-number">2</span> <span
+                            class="hljs-number">5</span> <span class="hljs-number">1</span> <span
+                            class="hljs-number">4</span> <span class="hljs-number">2</span> <span
+                            class="hljs-number">1</span> <span class="hljs-number">6</span> <span
+                            class="hljs-number">6</span> <span class="hljs-number">4</span> <span
+                            class="hljs-number">3</span>
+</code></pre>
+                <h2 id="labdoc-header-17">六. <code>defer</code>, <code>panic</code>和<code>recover</code></h2>
+                <h3 id="labdoc-header-18">1. <code>defer</code></h3>
+                <p>
+                    开发程序时，有的时候忘记关闭打开的文件导致程序执行失败，在python中可以很方便的使用<code>with</code>语句对这些资源进行自动管理。在Go中我们可以使用<code>defer</code>语句完成这项任务。<code>defer</code>语句用于延迟执行一个函数或者方法或者是当前创建的匿名函数，它会在外部函数或者方法返回之前但是其返回值计算之后执行。这样就可能在一个延迟执行的函数中修改函数的命名返回值。如果一个函数中又多个<code>defer</code>语句，它们会以后进先出的顺序执行。<code>defer</code>最常用的地方就是保证一个使用完成后的文件正常关闭。如下例子:
+                </p>
+                <pre><code class="hljs cs"><span class="hljs-keyword">var</span> file *os.File
+<span class="hljs-keyword">var</span> err error
+<span class="hljs-keyword">if</span> file, err = os.Open(filename); err != ni {
+    do_something(file)
+    <span class="hljs-keyword">return</span>
+}
+defer file.Close()
+</code></pre>
+                <h3 id="labdoc-header-19">2. <code>panic</code>和<code>recover</code></h3>
+                <p><code>panic</code>类似于其他程序中的异常，而<code>recover</code> 则用于恢复异常。当<code>panic()</code>函数被调用时，外围函数或者方法的执行会立即终止。然后任何延迟执行的函数都会被调用。这个过程一直在调用栈中层层发生，最后到达<code>main</code>函数，这个时候整个程序会终止，最终将最初的调用栈信息输出到stderr。但是当延迟执行函数中包含<code>recover</code>语句时，<code>recover</code>会捕捉到<code>panic</code>引发的异常，并停止<code>panic</code>的传播，这个时候我们能够以任何我们想用的方式处理<code>panic</code>。
+                </p>
+                <p>
+                    Go语言将错误和异常两者区分对待。错误是指有可能出错的东西，程序中已经包含处理这些错误的优雅逻辑。而异常则是指不可能发生的事情。例如，一个永远为true的条件在实际环境中却是false。Go语言推荐使用错误，而不使用异常。通常情况下，我们可以在<code>recover</code>中阻止<code>panic</code>的传播，并将<code>recover()</code>的返回值转换成错误。
+                </p>
+                <p>使用VIM创建源文件<code>panic_t.go</code>, 输入以下代码：</p>
+                <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-title">import</span> <span class="hljs-params">(
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"math"</span>
+)</span>
+
+func <span class="hljs-title">ContvertIntToInt16</span><span class="hljs-params">(x <span
+                            class="hljs-keyword">int</span>)</span> int16 </span>{
+    <span class="hljs-keyword">if</span> math.MinInt16 &lt;= x &amp;&amp; x &lt;= math.MaxInt16 {
+        <span class="hljs-keyword">return</span> int16(x)
+    }
+
+    panic(fmt.Sprintf(<span class="hljs-string">"%d is out of int16 range"</span>, x)) <span class="hljs-comment">// 手动触发panic</span>
+}
+
+<span class="hljs-function">func <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    i := ContvertIntToInt16(<span class="hljs-number">655567</span>)
+    fmt.Printf(<span class="hljs-string">"%d"</span>, i)
+}
+</code></pre>
+                <p>上面代码中为了演示<code>panic</code>，代码中手动促发了<code>panic()</code>的执行，但是我们没有使用<code>recover</code>进行捕捉，这会导致整个程序执行失败，下面执行程序验证下：
+                </p>
+                <pre><code class="hljs perl">$ go run panic_t.go
+panic: <span class="hljs-number">655567</span> is out of int16 range
+
+goroutine <span class="hljs-number">16</span> [running]:
+runtime.panic(<span class="hljs-number">0x96bc0</span>, <span class="hljs-number">0x208178180</span>)
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/panic.c:<span class="hljs-number">279</span> +<span
+                            class="hljs-number">0xf5</span>
+main.ContvertIntToInt16(<span class="hljs-number">0xa00cf</span>, <span class="hljs-number">0x3ec8f</span>)
+    /Users/aiden/Project/golang/panic_t.go:<span class="hljs-number">13</span> +<span class="hljs-number">0x10f</span>
+main.main()
+    /Users/aiden/Project/golang/panic_t.go:<span class="hljs-number">17</span> +<span class="hljs-number">0x26</span>
+
+goroutine <span class="hljs-number">17</span> [runnable]:
+runtime.MHeap_Scavenger()
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/mheap.c:<span class="hljs-number">507</span>
+runtime.goexit()
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/proc.c:<span class="hljs-number">1445</span>
+
+goroutine <span class="hljs-number">18</span> [runnable]:
+bgsweep()
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/mgc<span class="hljs-number">0</span>.c:<span
+                            class="hljs-number">1976</span>
+runtime.goexit()
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/proc.c:<span class="hljs-number">1445</span>
+
+goroutine <span class="hljs-number">19</span> [runnable]:
+runfin<span class="hljs-string">q()</span>
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/mgc<span class="hljs-number">0</span>.c:<span
+                            class="hljs-number">2606</span>
+runtime.goexit()
+    /usr/<span class="hljs-keyword">local</span>/go/src/pkg/runtime/proc.c:<span class="hljs-number">1445</span>
+<span class="hljs-keyword">exit</span> status <span class="hljs-number">2</span>
+</code></pre>
+                <p>可以看到没有捕捉<code>panic</code>时，整个程序退出，并且打印出了调用栈的异常信息。</p>
+                <p>下面我们使用Go语言推荐的做法捕捉<code>panic</code>并将<code>panic</code>转换为error, 创建源文件<code>panic_t1.go</code>，输入以下代码：
+                </p>
+                <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-title">import</span> <span class="hljs-params">(
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"math"</span>
+)</span>
+
+func <span class="hljs-title">ContvertIntToInt16</span><span class="hljs-params">(x <span
+                            class="hljs-keyword">int</span>)</span> int16 </span>{
+    <span class="hljs-keyword">if</span> math.MinInt16 &lt;= x &amp;&amp; x &lt;= math.MaxInt16 {
+        <span class="hljs-keyword">return</span> int16(x)
+    }
+
+    panic(fmt.Sprintf(<span class="hljs-string">"%d is out of int16 range"</span>, x)) <span class="hljs-comment">// 手动触发panic</span>
+}
+
+<span class="hljs-function">func <span class="hljs-title">Int16FromInt</span><span class="hljs-params">(x <span
+        class="hljs-keyword">int</span>)</span> <span class="hljs-params">(i int16, err error)</span> </span>{
+    <span class="hljs-function">defer <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>{   <span
+                            class="hljs-comment">// 延迟执行匿名函数，并使用recover捕捉了panic，并将panic转换为了error</span>
+        <span class="hljs-keyword">if</span> e := recover(); e != nil {
+            err = fmt.Errorf(<span class="hljs-string">"%v"</span>, e)
+        }
+    }()
+    i = ContvertIntToInt16(x)
+    <span class="hljs-keyword">return</span> i, nil
+}
+
+<span class="hljs-function">func <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> _, e := Int16FromInt(<span class="hljs-number">655567</span>); e != nil {
+
+        fmt.Printf(<span class="hljs-string">"%v\n"</span>, e)
+    } <span class="hljs-keyword">else</span> {
+        fmt.Printf(<span class="hljs-string">"no errors\n"</span>)
+    }
+}
+</code></pre>
+                <p>以上代码中，我们通过<code>recover</code>捕捉了异常，现在程序将异常转换成了错误，所以程序不会异常退出，执行验证如下：</p>
+                <pre><code class="hljs coffeescript">$ go run panic_t1.go
+<span class="hljs-number">655567</span> <span class="hljs-keyword">is</span> out <span class="hljs-keyword">of</span> int16 range
+</code></pre>
+                <p>值得注意的地方是，在以上代码中的<code>Int16FromInt(x int) (i int16, err error)</code>函数中，我们在<code>defer</code>语句的匿名函数中修改了命名的返回值<code>err</code>。该函数在被调用时，Go语言会自动的将其返回值设置为对应类型的零值，在<code>Int16FromInt</code>函数中，i被初始化为0，err被初始化为nil。当在<code>defer</code>语句中匿名函数执行时候，<code>recover</code>如果捕捉到异常，然后修改了命名返回值<code>err</code>，并保持<code>i</code>的值（零值
+                    )不变。如果没有捕捉到异常，则程序正常返回<code>i</code>和<code>nil</code>。</p>
+                <h2 id="labdoc-header-20">作业</h2>
+                <p>请使用本节所讲知识编写一个函数，实现输入一个正整数n，输出2-n之间的所有素数。</p>
+            </div>
+        </div>
+
+
+        <a class="pull-left labdoc-page" href="/courses/11/labs/127/document">
+            上一节：Go语言复合类型
+        </a>
+
+
+        <a class="pull-right labdoc-page" href="/courses/11/labs/129/document">
+            下一节：Go语言面向对象编程
+        </a>
+
+    </div>
+    <textarea id="editor" style="display:none;"># Go 语言过程式编程
+
+
+## 一、实验介绍
+
+### 1.1 实验内容
+
+这节讲解Go语言的各种语句，控制结构，以及如何使用这些语句进行过程式编程，课程的内容比较多，但是都比较重要，在编写Go程序的过程中会频繁使用到。
+
+### 1.2 实验知识点
++ Go 语言中的 类型转换 和 类型断言
++ Go 语言中的 分支 和 for 语句
++ Go 语言中的 函数 和 goroutine
+
+### 1.3 实验环境
+
++ Xfce 终端
++ Go 1.2.1
+
+
+### 1.4 适合人群
+本课程难度为简单，属于初级级别课程，对没有一点Go基础的同学也很友好。
+
+### 1.5 代码获取
+
+本课程所有源代码，可以在XfceTerminal中通过以下方式克隆到实验环境:
+```
+$ git clone https://github.com/shiyanlou/Golang_Programming
+```
+
+##二. Go语言语句基础
+
+之所以先学习过程式编程，是因为在Go语言中面向对象编程也是建立在面向过程的基础上的。形式上讲，Go语言需要使用分号(;) 来作为上下文语句的分隔结束符。实际上在前面的代码中我们可以看到在Go语言中很少使用分号，那是因为编译器会自动在需要分号的地方加上分号。但是有两个地方必须使用分号，第一个是需要在一个行中放入一条或多条语句时，或者是在使用原始的 for 循环时。Go语言也支持多重赋值，如`a, b = b, a`。另外在之前的课程中我们提到过快速声明操作符`:=`，它的作用是同时在一个语句中声明和赋值一个变量。当`:=`操作符用于多个逗号分隔的变量时，如果该变量已经存在，则只是简单的修改它的值。但是当`:=`操作符位于作用域的起始处时，Go语言会创建一个新的变量，不管该变量之前是否存在，如在if或者for语句中。下面有一个例子可以说明:
+
+```
+a, b, c := 2, 3, 5
+for a := 7; a &lt; 8; a++ {
+    fmt.Println(a)
+}
+```
+
+以上代码中，先使用`:=`声明并赋值了三个变量，Go会自动推导出变量的类型。然后再`for`语句处又一次使用`:=`操作符声明了变量`a`。需要注意的地方是，`for`语句代表了一个新的作用域，所以`:=`在这里新声明创建了一个变量`a`，这个变量和之前的变量`a`是完全不同的两个变量（内存地址不一样），所以是一个影子变量，因为覆盖了外部的同名变量。这是需要注意的一个地方。
+
+###1. 类型转换
+Go语言提供了一种在不同但相互兼容的类型之间相互转换的方式，这种转换非常有用并且是安全的。但是需要注意的是在数值之间进行转换可能造成其他问题，如精度丢失或者错误的结果。以下是类型转换的语法:
+
++ `resultOfType := Type(expression)`
+
+几个例子：
+
+```
+x := int16(2345)        // 声明一个类型为int16的整数，其值为2345
+y := int32(x)           // 将int16类型的整数转换为int32类型
+a := uint16(6500)       // 声明一个类型为uint16类型的整数
+b := int16(x)           // 转换为int16类型，虽然能转换成功，但是由于6500超过in16类型的范围，会导致结果错误，b的值为 -536
+
+```
+
+另外在Go语言中可以通过`type`关键字声明类型，如`type StringsSlice []string` 将[]string（string类型的切片）声明为`StringSlice`类型。
+
+###2. 类型断言
+说到类型断言就需要先了解下Go语言中的接口。在Go语言中接口是一个自定义类型。它声明了一个或者多个方法。任何实现了这些方法的对象（类型）都满足这个接口。接口是完全抽象的，不能实例化。`interface{}`类型表示一个空接口，任何类型都满足空接口。也就是说`interface{}`类型的值可以用于表示任意Go语言类型的值。这里的空接口有点类似于python语言中的object实例。既然`interface{}` 可以用于表示任意类型，那有的时候我们需要将`interface{}`类型转换为我们需要的类型，这个操作类型断言。**一般情况下只有我们希望表达式是某种特定类型的值时才使用类型断言**。Go语言中可以使用以下语法：
+
++ resultOfType, boolean := expression.(Type)    // 安全的类型断言
++ resultOfType := expression.(Type)             // 非安全的类型断言，失败时程序会产生异常
+
+使用VIM创建源文件`type_t.go`，输入以下源文件：
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    x := uint16(65000)
+    y := int16(x) // 将 x转换为int16类型
+    fmt.Printf("type and value of x is: %T and %d\n", x, x) // %T 格式化指令的作用是输出变量的类型
+    fmt.Printf("type and value of y is: %T and %d\n", y, y)
+
+    var i interface{} = 99 // 创建一个interface{}类型，其值为99
+    var s interface{} = []string{"left", "right"}
+    j := i.(int) // 我们假设i是兼容int类型，并使用类型断言将其转换为int类型
+    fmt.Printf("type and value of j is: %T and %d\n", j, j)
+
+    if s, ok := s.([]string); ok { // 创建了影子变量，if的作用域中覆盖了外部的变量s
+        fmt.Printf("%T -&gt; %q\n", s, s)
+    }
+}
+```
+
+
+运行程序：
+
+```
+$ go run type_t.go
+type and value of x is: uint16 and 65000
+type and value of y is: int16 and -536
+type and value of j is: int and 99
+[]string -&gt; ["left" "right"]
+```
+
+##三. 分支和`for`语句
+Go语言提供了3种分支，即`if`、`switch`、`select`, 其中`select`用于监听channel（通道）在讲解通道的时候再详细介绍。
+###1. `if` 分支
+语法:
+
+```
+if optionalStatement1; booleanExpression1 {
+    block1
+} else if optionalStatement2; booleanExpression2 {
+    block2
+} else {
+    block3
+}
+```
+
+其中`optionalStatement`是可选的表达式，真正决定分支走向的是`booleanExpression1`的值。
+
+###2. `switch`分支
+Go语言中`switch`分支既可用于常用的分支就象C语言中的switch一样，也可以用于类型开关，所谓类型开关就是用于判断变量属于什么类型。但是需要注意的是Go语言的`switch`语句不会自动贯穿，相反，如果想要贯穿需要添加`fallthrough`语句。表达式开关`switch`的语法如下：
+
+```
+switch optionalStatement; optionalExpression {
+    case expression1: block1
+    ...
+    case expressionN: blockN
+    default: blockD
+}
+```
+
+下面是个例子：
+```
+switch {        // 没有表达式，默认为True值，匹配分支中值为True的分支
+    case value &lt; minimum:
+        return minimum
+    case value &gt; maximum:
+        return maximum
+    default:
+        return value
+}
+```
+
+在上面的例子中，switch后面没有默认的表达式，这个时候Go语言默认其值为True。
+在前面我们提到过类型断言，如果我们知道变量的类型就可以使用类型断言，但是当我们知道类型可能是许多类型中的一种时候，我们就可以使用类型开关。其语法如下：
+
+```
+switch optionalStatement; typeSwitchGuard {
+    case type1: block1
+    ...
+    case typeN: blockN
+    default: blockD
+}
+```
+
+###3. `for`循环语句
+在前面的代码中我们已经遇到很多遍`for`语句了，它可以遍历数组，切片，映射等类型，也可以用于无限循环。以下是其语法：
+
+```
+for { // 无限循环
+    block
+}
+
+for booleanExpression { // while循环，在Go语言中没有while关键字
+
+}
+
+for index, char := range aString { // 迭代字符串
+
+}
+
+for item := range aChannel { // 迭代通道
+
+}
+```
+
+说了这么多，让我们进行下练习，创建源文件`switch_t.go`，输入以下代码：
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+func classchecker(items ...interface{}) { // 创建一个函数，该函数可以接受任意多的任意类型的参数
+    for i, x := range items {
+        switch x := x.(type) { // 创建了影子变量
+        case bool:
+            fmt.Printf("param #%d is a bool, value: %t\n", i, x)
+        case float64:
+            fmt.Printf("param #%d is a float64, value: %f\n", i, x)
+        case int, int8, int16, int32, int64:
+            fmt.Printf("param #%d is a int, value: %d\n", i, x)
+        case uint, uint8, uint16, uint32, uint64:
+            fmt.Printf("param #%d is a uint, value: %d\n", i, x)
+        case nil:
+            fmt.Printf("param #%d is a nil\n", i)
+        case string:
+            fmt.Printf("param #%d is a string, value: %s\n", i, x)
+        default:
+            fmt.Printf("param #%d's type is unknow\n", i)
+        }
+    }
+}
+
+func main() {
+    classchecker(5, -17.98, "AIDEN", nil, true, complex(1, 1))
+
+}
+```
+
+以上代码中我们首先创建了一个接收任意数量任意类型参数的函数，然后使用`for ... range aSlice`的语法迭代了每一个在切片items中的元素，接着使用了`switch`类型开关判断了每一个参数的类型，并打印了其值和类型。程序运行输出如下：
+
+```
+$ go run switch_t.go
+param #0 is a int, value: 5
+param #1 is a float64, value: -17.980000
+param #2 is a string, value: AIDEN
+param #3 is a nil
+param #4 is a bool, value: true
+param #5's type is unknow
+```
+
+##四. 函数
+Go语言可以很方便的自定义函数，其中有特殊的函数`main`函数。`main`函数必须出现在main包里，且只能出现一次。当Go程序运行时候会自动调用`main`函数开始整个程序的执行。`main`函数不可接收任何参数，也不返回任何结果。
+Go语言中函数的创建使用以下语法：
+
+```
+func functionName(optionalParameters) optionalReturnType {
+    block // func 函数名(参数列表) 单个返回值类型
+}
+
+func functionName(optionalParameters) (optionalReturnValues) {
+    block // func 函数名(参数列表) (返回值1 类型，返回值2 类型)
+}
+```
+
+函数可以有任意多个参数，也可以有任意多个返回值，返回值可以是命名的。具体的看以下例子：
+
+```
+func func1(first int, rest ...int) int {
+    return first // func1 函数可以接收任多的int类型参数，并且返回一个int类型的值
+}
+
+func func2(first int, second string) (int, string) {
+    return first, second // func2 接收两个，函数，并且返回一个int和string类型的值
+}
+
+func func3(first int, second string) (a, b int) {
+    a, b = 1, 2 // func3 接收两个参数，并返回两个int类型的值，因为返回值是命名的，所以这里可以缩写
+    return
+}
+```
+
+##五. 通信(channel)和并发(goroutine)语句
+在本课程开篇中我们就介绍过Go语言强大的并发功能，这些功能都是建立在通信和并发语句上的。所谓`goroutine`是程序中与其他`goroutine`完全独立而并发执行的函数或者方法调用。每一个Go程序都至少有一个`goroutine`，其中`main()`函数所在的goroutine是`主goroutine`。`goroutine`很像轻量级的线程，它们可以被大批量的创建。那`goroutine`之间怎么进行通信呢？Go语言中推荐的做法是使用`channel`(通道)。`channel`是一个双向的或者单向的通信管道，可以用于两个或者多个`goroutine`之间进行通信（即接收和发送）数据。
+
+###1. 语法
+`goroutine`使用以下的go语句进行创建:
+
++ **go** function(arguments)
++ **go** func(parameters) { block } (arguments)
+
+第二种方式中，我们是创建了一个临时的匿名函数，并马上在`goroutine`中执行。
+当调用用`go`关键字执行函数时，函数会在另一个`goroutine`上马上执行，并且当前的`goroutine`的执行会从下一条语句马上恢复。因此执行一个`go`语句之后，当前程序中至少有两个`goroutine`在运行。
+
+在大多数情况下，`goroutine`之间需要相互协作，最好的方式是通过`channel`来交换数据。使用下面语法创建`channel`（通道）：
+
++ make(chan Type)
++ make(chan Type, capacity)
+
+语法中的Type指明了通道能发送的数据类型。其中第一种语法中创建了一个同步的通道，一次只能发送一项数据，它会阻塞直到发送者准备好发送和接收者准备好接收。如果给定了`capacity`也就是缓冲区容量，在缓冲区容量未满之前通道都是异步无阻塞的。通道支持的操作如下:
+
+语法                | 含义
+--------------------|-----------------------------
+channel &lt;- value    | 发送value到通道中，有可能阻塞
+&lt;-channel           | 从通道中接收数据
+x := &lt;-channel      | 接收数据并赋值给x
+x, ok := &lt;-channel  | 功能同上，同时检查通道是否已关闭或者是否为空
+
+###2. `select`语句
+在前面的课程中我们提到过select语句，用于监听通道。其语法如下：
+
+```
+select {
+    case sendOrReceviae1: block1
+    ...
+    case sendOrReceiveN: blockN
+    default: blockD
+}
+```
+
+Go语言会从头至尾的判断每一个`case`中的发送和接收语句。如果其中任何一条语句可以执行（即没有被阻塞），那就从那些可执行的语句中任意选择一条来使用。如果所有的通道都被阻塞，那可能有两种情况。第一种，如果有`default`语句，那就会执行`default` 语句，同时程序的执行会从`select`语句恢复。第二种，如果没有`default`语句，则`select`语句会一直阻塞，直到有一个通道可用
+
+下面让我们使用以上的相关知识进行下练习，使用VIM创建源文件`goroutine_channel_t.go`，输入如下源代码：
+
+```
+package main
+
+import (
+    "fmt"
+    "math/rand"
+)
+
+func main() {
+    channels := make([]chan bool, 6) // 创建一个类型为chan bool的切片，每一项是能发送bool值的通道
+    for i := range channels { // 通过`range`初始化切片
+        channels[i] = make(chan bool)
+    }
+
+    go func() { // 在其他gouroutine中执行匿名函数
+        for {
+            channels[rand.Intn(6)] &lt;- true // rand.Intn(n int)的用途是产生一个不大于n的随机数
+        }                                  // 发送数据到随机出现的通道
+    }()
+
+    for i := 0; i &lt; 36; i++ {
+        var x int
+        select { // select 语句当监听到哪个分支的通道未阻塞时就跳转到哪个分支
+        case &lt;-channels[0]:
+            x = 1
+        case &lt;-channels[1]:
+            x = 2
+        case &lt;-channels[2]:
+            x = 3
+        case &lt;-channels[3]:
+            x = 4
+        case &lt;-channels[4]:
+            x = 5
+        case &lt;-channels[5]:
+            x = 6
+        }
+        fmt.Printf("%d ", x)
+    }
+    fmt.Println()
+}
+```
+
+通过以上注释可以很清晰的看到整个代码的执行流程，下面我们执行代码:
+
+```
+$ go run goroutine_channel_t.go
+6 4 6 6 2 1 2 3 5 1 3 2 1 6 5 3 4 6 6 3 6 1 3 5 4 2 2 5 1 4 2 1 6 6 4 3
+```
+
+##六. `defer`, `panic`和`recover`
+###1. `defer`
+开发程序时，有的时候忘记关闭打开的文件导致程序执行失败，在python中可以很方便的使用`with`语句对这些资源进行自动管理。在Go中我们可以使用`defer`语句完成这项任务。`defer`语句用于延迟执行一个函数或者方法或者是当前创建的匿名函数，它会在外部函数或者方法返回之前但是其返回值计算之后执行。这样就可能在一个延迟执行的函数中修改函数的命名返回值。如果一个函数中又多个`defer`语句，它们会以后进先出的顺序执行。`defer`最常用的地方就是保证一个使用完成后的文件正常关闭。如下例子:
+
+```
+var file *os.File
+var err error
+if file, err = os.Open(filename); err != ni {
+    do_something(file)
+    return
+}
+defer file.Close()
+```
+
+###2. `panic`和`recover`
+`panic`类似于其他程序中的异常，而`recover` 则用于恢复异常。当`panic()`函数被调用时，外围函数或者方法的执行会立即终止。然后任何延迟执行的函数都会被调用。这个过程一直在调用栈中层层发生，最后到达`main`函数，这个时候整个程序会终止，最终将最初的调用栈信息输出到stderr。但是当延迟执行函数中包含`recover`语句时，`recover`会捕捉到`panic`引发的异常，并停止`panic`的传播，这个时候我们能够以任何我们想用的方式处理`panic`。
+
+Go语言将错误和异常两者区分对待。错误是指有可能出错的东西，程序中已经包含处理这些错误的优雅逻辑。而异常则是指不可能发生的事情。例如，一个永远为true的条件在实际环境中却是false。Go语言推荐使用错误，而不使用异常。通常情况下，我们可以在`recover`中阻止`panic`的传播，并将`recover()`的返回值转换成错误。
+
+使用VIM创建源文件`panic_t.go`, 输入以下代码：
+
+```
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func ContvertIntToInt16(x int) int16 {
+    if math.MinInt16 &lt;= x &amp;&amp; x &lt;= math.MaxInt16 {
+        return int16(x)
+    }
+
+    panic(fmt.Sprintf("%d is out of int16 range", x)) // 手动触发panic
+}
+
+func main() {
+    i := ContvertIntToInt16(655567)
+    fmt.Printf("%d", i)
+}
+```
+
+上面代码中为了演示`panic`，代码中手动促发了`panic()`的执行，但是我们没有使用`recover`进行捕捉，这会导致整个程序执行失败，下面执行程序验证下：
+
+```
+$ go run panic_t.go
+panic: 655567 is out of int16 range
+
+goroutine 16 [running]:
+runtime.panic(0x96bc0, 0x208178180)
+    /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5
+main.ContvertIntToInt16(0xa00cf, 0x3ec8f)
+    /Users/aiden/Project/golang/panic_t.go:13 +0x10f
+main.main()
+    /Users/aiden/Project/golang/panic_t.go:17 +0x26
+
+goroutine 17 [runnable]:
+runtime.MHeap_Scavenger()
+    /usr/local/go/src/pkg/runtime/mheap.c:507
+runtime.goexit()
+    /usr/local/go/src/pkg/runtime/proc.c:1445
+
+goroutine 18 [runnable]:
+bgsweep()
+    /usr/local/go/src/pkg/runtime/mgc0.c:1976
+runtime.goexit()
+    /usr/local/go/src/pkg/runtime/proc.c:1445
+
+goroutine 19 [runnable]:
+runfinq()
+    /usr/local/go/src/pkg/runtime/mgc0.c:2606
+runtime.goexit()
+    /usr/local/go/src/pkg/runtime/proc.c:1445
+exit status 2
+```
+
+可以看到没有捕捉`panic`时，整个程序退出，并且打印出了调用栈的异常信息。
+下面我们使用Go语言推荐的做法捕捉`panic`并将`panic`转换为error, 创建源文件`panic_t1.go`，输入以下代码：
+
+```
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func ContvertIntToInt16(x int) int16 {
+    if math.MinInt16 &lt;= x &amp;&amp; x &lt;= math.MaxInt16 {
+        return int16(x)
+    }
+
+    panic(fmt.Sprintf("%d is out of int16 range", x)) // 手动触发panic
+}
+
+func Int16FromInt(x int) (i int16, err error) {
+    defer func() {   // 延迟执行匿名函数，并使用recover捕捉了panic，并将panic转换为了error
+        if e := recover(); e != nil {
+            err = fmt.Errorf("%v", e)
+        }
+    }()
+    i = ContvertIntToInt16(x)
+    return i, nil
+}
+
+func main() {
+    if _, e := Int16FromInt(655567); e != nil {
+
+        fmt.Printf("%v\n", e)
+    } else {
+        fmt.Printf("no errors\n")
+    }
+}
+```
+
+以上代码中，我们通过`recover`捕捉了异常，现在程序将异常转换成了错误，所以程序不会异常退出，执行验证如下：
+
+```
+$ go run panic_t1.go
+655567 is out of int16 range
+```
+
+值得注意的地方是，在以上代码中的`Int16FromInt(x int) (i int16, err error)`函数中，我们在`defer`语句的匿名函数中修改了命名的返回值`err`。该函数在被调用时，Go语言会自动的将其返回值设置为对应类型的零值，在`Int16FromInt`函数中，i被初始化为0，err被初始化为nil。当在`defer`语句中匿名函数执行时候，`recover`如果捕捉到异常，然后修改了命名返回值`err`，并保持`i`的值（零值 )不变。如果没有捕捉到异常，则程序正常返回`i`和`nil`。
+
+
+
+## 作业
+
+请使用本节所讲知识编写一个函数，实现输入一个正整数n，输出2-n之间的所有素数。
+</textarea>
+
+</div>
+
+
+<div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-label">
+                    分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                </div>
+                <input id="bstext" class="form-invite"
+                       value="https://www.shiyanlou.com/register?inviter=NTY0MzE5MzY1MzY2" type="text">
+
+                <div id="msg-modal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+    <div class="modal-dialog" rolw="document">
+    </div>
+</div>
+<div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">注意</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="new-loading new-loading-modal" id="new-loading-modal">
+    <div class="loading-wrapper">
+        <p class="loading-icon-lion">
+            <img src="https://static.shiyanlou.com/img/console/icon_loading.png" alt="">
+        </p>
+        <div class="progress">
+            <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                 aria-valuemax="100" style="width: 0;">
+                <span class="sr-only">0% Complete</span>
+            </div>
+        </div>
+        <p class="loading-txt">
+            加载中，精彩就在后面...
+        </p>
+        <p class="progress-reload">
+            <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+        </p>
+    </div>
+</div>
+
+
+<div class="modal fade" id="start-newlab">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+            </div>
+            <div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始实验</h3>
+            </div>
+            <div class="modal-body">
+                <div class="start-newlab"></div>
+                <br>
+                <div class="text-center vip-vm">
+                    <a class="btn btn-default btn-lg newvm">创建新环境</a>
+
+                </div>
+                <br>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="/questions/">
+                    <input name="_csrf_token"
+                           value="IjVhNTk5YmM5ZjUzODE2MjhiYjEyZWNhNWYxMzUyMDhlNWYwYzVlNjIi.DIF6jg.DiV8YKaP1W3dF7diKKmjdgJpqNE"
+                           type="hidden">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input name="title" min="5" max="100" class="form-control" placeholder="至少输入5个字" value=""
+                                   type="text">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+
+
+                            <div class="tabpanel mkeditor">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active">
+                                        <a href="#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a class="mkeditor-btn-view" href="#mkeditor-viewer" role="tab"
+                                           data-toggle="tab">预览</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+
+                                        <div class="btn-group" role="group">
+
+                                            <button type="button" class="btn btn-default mkeditor-btn-bold">
+                                                <i class="fa fa-bold"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default mkeditor-btn-italic">
+                                                <i class="fa fa-italic"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default mkeditor-btn-link">
+                                                <i class="fa fa-link"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default mkeditor-btn-quote">
+                                                <i class="fa fa-quote-left"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default mkeditor-btn-code">
+                                                <i class="fa fa-code"></i>
+                                            </button>
+                                            <button id="mkeditor-pickfile" type="button"
+                                                    class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                                                <i class="fa fa-image"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-default mkeditor-btn-listol">
+                                                <i class="fa fa-list-ol"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default mkeditor-btn-listul">
+                                                <i class="fa fa-list-ul"></i>
+                                            </button>
+                                            <div id="html5_1bocacpm9q1deg8iecdv4d4d3_container"
+                                                 class="moxie-shim moxie-shim-html5"
+                                                 style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;">
+                                                <input id="html5_1bocacpm9q1deg8iecdv4d4d3"
+                                                       style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
+                                                       multiple="" accept="" type="file"></div>
+                                        </div>
+                                        <div class="btn-group pull-right" role="group">
+                                            <a style="font-size:12px; color:#666; text-decoration:underline;"
+                                               href="/questions/764" target="_blank">
+                                                <i class="fa fa-question-circle"></i>Markdown 语法
+                                            </a>
+                                        </div>
+                                        <textarea name="content" class="content" min="0" max="20000"
+                                                  placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+                                        <div class="help-block"></div>
+                                    </div>
+                                    <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer"
+                                         role="tabpanel">
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="bottom-link btn btn-primary" href="/vip" target="_blank"
+                   style="background:#FFFFFF;color:#00CC99;border:none;float:left;padding-left:0;"><img
+                        src="https://static.shiyanlou.com/img/icon-vip-advance.png" alt=""> 加入高级会员获得助教答疑</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="sign-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#signin-form" aria-controls="signin-form" role="tab" data-toggle="tab">登录</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#signup-form" aria-controls="signup-form" role="tab" data-toggle="tab">注册</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="signin-form">
+                        <form action="/login" method="post">
+                            <input name="_csrf_token"
+                                   value="IjVhNTk5YmM5ZjUzODE2MjhiYjEyZWNhNWYxMzUyMDhlNWYwYzVlNjIi.DIF6jg.DiV8YKaP1W3dF7diKKmjdgJpqNE"
+                                   type="hidden">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input name="login" class="form-control" placeholder="请输入邮箱" type="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-lock" style="margin:0;"></i>
+                                    </div>
+                                    <input name="password" class="form-control" placeholder="请输入密码" type="password">
+                                </div>
+                            </div>
+                            <div class="form-inline verify-code-item" style="display:none;">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input name="captcha_v" class="form-control" placeholder="请输入验证码" type="text">
+                                    </div>
+                                </div>
+                                <img class="verify-code" src="" source="/captcha.gif">
+                            </div>
+                            <div class="form-group remember-login">
+                                <input name="remember" value="y" type="checkbox"> 下次自动登录
+                                <a class="pull-right" href="/reset_password">忘记密码？</a>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" name="submit" value="进入实验楼" type="submit">
+                            </div>
+                            <div class="form-group widget-signin">
+                                <span>快速登录</span>
+                                <a href="/auth/qq?next="><i class="fa fa-qq"></i></a>
+                                <a href="/auth/weibo?next="><i class="fa fa-weibo"></i></a>
+                                <a href="/auth/weixin?next="><i class="fa fa-weixin"></i></a>
+                                <a href="/auth/github?next="><i class="fa fa-github"></i></a>
+                                <a href="/auth/renren?next="><i class="fa fa-renren"></i></a>
+                            </div>
+                            <div class="form-group error-msg">
+                                <div class="alert alert-danger" role="alert"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="signup-form">
+                        <form action="/register" method="post">
+                            <input name="_csrf_token"
+                                   value="IjVhNTk5YmM5ZjUzODE2MjhiYjEyZWNhNWYxMzUyMDhlNWYwYzVlNjIi.DIF6jg.DiV8YKaP1W3dF7diKKmjdgJpqNE"
+                                   type="hidden">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input name="email" class="form-control" placeholder="请输入邮箱" type="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-lock" style="margin:0;"></i>
+                                    </div>
+                                    <input name="password" class="form-control" placeholder="请输入密码" type="password">
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input name="captcha_v" class="form-control" placeholder="请输入验证码" type="text">
+                                    </div>
+                                </div>
+                                <img class="verify-code" src="" source="/captcha.gif">
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" name="submit" value="注册" type="submit">
+                            </div>
+                            <div class="form-group agree-privacy">
+                                注册表示您已经同意我们的<a href="/privacy" target="_blank">隐私条款</a>
+                            </div>
+                            <div class="form-group widget-signup">
+                                <span>快速注册</span>
+                                <a href="/auth/qq?next="><i class="fa fa-qq"></i></a>
+                                <a href="/auth/weibo?next="><i class="fa fa-weibo"></i></a>
+                                <a href="/auth/weixin?next="><i class="fa fa-weixin"></i></a>
+                                <a href="/auth/github?next="><i class="fa fa-github"></i></a>
+                                <a href="/auth/renren?next="><i class="fa fa-renren"></i></a>
+                            </div>
+                            <div class="form-group error-msg">
+                                <div class="alert alert-danger" role="alert"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="base-data" data-flash="false" data-is-login="true"
+     data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzNTI2OTEiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiTWFybW90IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1MDM3Mzg1MTAsImlhdCI6MTUwMzY1MjExMH0.QZh-5hm0en2d-maPeQWJdRnRMc68cveH_6E9zZj82Is"
+     data-user-id="352691" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user=""
+     data-msg-system=""></div>
+
+<!-- 不带 CSS 的库 -->
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script src="https://static.shiyanlou.com/static/babel-polyfill/6.20.0/polyfill.min.js"></script>
+<script src="/app/dist/js/manifest.js?=20170824164541"></script>
+<script src="/app/dist/js/vendor.js?=20170824164541"></script>
+
+<script src="https://static.shiyanlou.com/static/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://static.shiyanlou.com/static/jquery.form/3.51/jquery.form.min.js"></script>
+<script src="https://static.shiyanlou.com/static/jquery.menu/jquery.menu-aim.js"></script>
+<script src="https://static.shiyanlou.com/static/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<script src="https://static.shiyanlou.com/static/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://static.shiyanlou.com/static/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://static.shiyanlou.com/static/zeroclipboard/2.3.0/ZeroClipboard.min.js"></script>
+<script src="https://static.shiyanlou.com/static/aliyun/aliyun-oss-sdk-4.3.0.min.js"></script>
+<script src="https://static.shiyanlou.com/static/qiniu/qiniu.js"></script>
+<script src="https://static.shiyanlou.com/static/plupload/2.1.9/js/plupload.full.min.js"></script>
+<script src="https://static.shiyanlou.com/static/echarts/v3.3.2/echarts.min.js"></script>
+<!-- 不带 CSS 的库 end -->
+
+<!-- 带有 CSS 的库 -->
+<script src="https://static.shiyanlou.com/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://static.shiyanlou.com/static/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+<script src="https://static.shiyanlou.com/static/bootstrap-tour/0.11.0/js/bootstrap-tour.min.js"></script>
+<script src="https://static.shiyanlou.com/static/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+<script src="https://static.shiyanlou.com/static/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="https://static.shiyanlou.com/static/bootstrap-table/1.11.0/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
+<script src="https://static.shiyanlou.com/static/ace/1.2.5/ace.js"></script>
+<script src="https://static.shiyanlou.com/static/videojs/5.15.1/js/video.min.js"></script>
+<script src="https://static.shiyanlou.com/static/katex/0.7.1/katex.min.js"></script>
+<script src="https://static.shiyanlou.com/static/highlight.js/9.9.0/js/highlight.min.js"></script>
+<!-- 带有 CSS 的库 end -->
+
+<script src="https://static.shiyanlou.com/static/ravenjs/3.7.0/raven.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://static.shiyanlou.com/static/moment/moment.min.js" charset="utf-8"></script>
+<script src="https://static.shiyanlou.com/static/calendar-heatmap/calendar-heatmap.js"></script>
+
+<script>
+    Raven.config('https://bc3878b7ed0a4468a65390bd79e6e73f@sentry.shiyanlou.com/5', {
+        release: '3.12.13'
+    }).install();
+</script>
+
+
+<div id="jinja-data" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/11"
+     data-left-time="0" data-course-id="11" data-userlab-id="None" data-question-form="/questions/meta"
+     data-start-newlab-url="/courses/clear"></div>
+<script src="/app/dist/js/course/labDoc.js?=20170824164541"></script>
+<div style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8) none repeat scroll 0% 0%; text-align: center; z-index: 1600;">
+    <i class="fa fa-spinner fa-pulse" style="margin-top: 247.2px; color: rgb(255, 255, 255); font-size: 35px;"></i>
+</div>
+
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
