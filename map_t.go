@@ -13,7 +13,7 @@ func main() {
 	shiyanlou["linux"] = "sys administrator"
 	fmt.Print("Traverse all keys: ")
 	// for key in shiyanlou.keys()
-	for key := range shiyanlou { // 遍历了映射的所有键
+	for key := range shiyanlou {
 		// print('{}'.format(key))
 		fmt.Printf("% s ", key)
 	}
