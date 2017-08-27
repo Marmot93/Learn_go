@@ -14,7 +14,7 @@ func ContvertIntToInt16(x int) int16 {
 }
 
 func Int16FromInt(x int) (i int16, err error) {
-	defer func() {   // 延迟执行匿名函数，并使用recover捕捉了panic，并将panic转换为了error
+	defer func() { // 延迟执行匿名函数，并使用recover捕捉了panic，并将panic转换为了error
 		if e := recover(); e != nil {
 			err = fmt.Errorf("%v", e)
 		}

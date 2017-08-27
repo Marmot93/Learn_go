@@ -1,21 +1,18 @@
 package main
 
-import "fmt"
-
-func sum(a []int, result chan int) {
-	sum := 0
-	for _, v := range a {
-		sum += v
-	}
-	result <- sum
-}
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	a := []int{2, 3, 5, 6, 10, -5, 1, 0}
-	result := make(chan int)
-	go sum(a[:len(a)/2], result)
-	go sum(a[len(a)/2:], result)
-	x, y := <-result, <-result
+	var str string = "go_lang"
+	fmt.Printf("T/F? Does the string \"%s\" have prefix \"%s\"? ", str, "go")
+	fmt.Printf("%t\n", strings.HasPrefix(str, "go"))
+	fmt.Printf("T/F? Does the string \"%s\" contains \"%s\"? ", str, "-")
+	fmt.Printf("%t\n", strings.Contains(str, "-"))
+	str_new := strings.Replace(str, "go", "python", 1)
+	fmt.Printf("Origin string: \"%s\", after replace: \"%s\"\n", str, str_new)
+	fmt.Printf("Number of 'n' in \"%s\" is: %d\n", str_new, strings.Count(str_new, "n"))
 
-	fmt.Println(x, y, x+y)
 }

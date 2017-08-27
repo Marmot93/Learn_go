@@ -7,14 +7,14 @@ import (
 
 func main() {
 	channels := make([]chan bool, 6) // 创建一个类型为chan bool的切片，每一项是能发送bool值的通道
-	for i := range channels { // 通过`range`初始化切片
+	for i := range channels {        // 通过`range`初始化切片
 		channels[i] = make(chan bool)
 	}
 
 	go func() { // 在其他gouroutine中执行匿名函数
 		for {
 			channels[rand.Intn(6)] <- true // rand.Intn(n int)的用途是产生一个不大于n的随机数
-		}                                  // 发送数据到随机出现的通道
+		} // 发送数据到随机出现的通道
 	}()
 
 	for i := 0; i < 36; i++ {
