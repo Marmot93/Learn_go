@@ -12,6 +12,7 @@ func main() {
 	fmt.Printf("T/F? Does the string \"%s\" contains \"%s\"? ", str, "-")
 	fmt.Printf("%t\n", strings.Contains(str, "-"))
 	str_new := strings.Replace(str, "go", "python", 1)
+	//参数n指明了将字符串s中的前n个old字符串替换为new字符串，如果n = -1则提供所有匹配到的字符串。
 	fmt.Printf("Origin string: \"%s\", after replace: \"%s\"\n", str, str_new)
 	fmt.Printf("Number of 'n' in \"%s\" is: %d\n", str_new, strings.Count(str_new, "n"))
 
