@@ -9,12 +9,14 @@ import (
 )
 
 func read1(path string) string {
+	// 打开文件
 	fi, err := os.Open(path)
+	// panic err 关闭文件
 	if err != nil {
 		panic(err)
 	}
 	defer fi.Close()
-
+	// chunks 读取 Byte型数组 每次一kb
 	chunks := make([]byte, 1024, 1024)
 	buf := make([]byte, 1024)
 	for {
@@ -26,7 +28,7 @@ func read1(path string) string {
 			break
 		}
 		chunks = append(chunks, buf[:n]...)
-		 fmt.Println(string(buf[:n]))
+		fmt.Println(string(buf[:n]))
 	}
 	return string(chunks)
 }
@@ -51,7 +53,7 @@ func read2(path string) string {
 			break
 		}
 		chunks = append(chunks, buf[:n]...)
-		 fmt.Println(string(buf[:n]))
+		fmt.Println(string(buf[:n]))
 	}
 	return string(chunks)
 }

@@ -14,6 +14,6 @@ func ContvertIntToInt16(x int) int16 {
 }
 
 func main() {
-	i := ContvertIntToInt16(655567)
+	i := ContvertIntToInt16(65567)
 	fmt.Printf("%d", i)
 }
