@@ -9,7 +9,7 @@ func ContvertIntToInt16(x int) int16 {
 	if math.MinInt16 <= x && x <= math.MaxInt16 {
 		return int16(x)
 	}
-
+	// except Exception as e: print(e)
 	panic(fmt.Sprintf("%d is out of int16 range", x)) // 手动触发panic
 }
 
@@ -24,6 +24,7 @@ func Int16FromInt(x int) (i int16, err error) {
 }
 
 func main() {
+	// index , func , bool
 	if _, e := Int16FromInt(655567); e != nil {
 
 		fmt.Printf("%v\n", e)

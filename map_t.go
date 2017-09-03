@@ -21,8 +21,9 @@ func main() {
 	// shiyanlou.delete('linux')
 	delete(shiyanlou, "linux")
 	shiyanlou["golang"] = "beego web framework"
-	// value, key 真他妈的反人类，把值放前面，没有就是空
+	// value ''| key false
 	v, key := shiyanlou["linux"]
+	// Found key "linux" Yes or False: false, value of key "linux": ""
 	fmt.Printf("Found key \"linux\" Yes or False: %t, value of key \"linux\": \"%s\"", key, v)
 	fmt.Println()
 
