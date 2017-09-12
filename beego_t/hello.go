@@ -1,4 +1,4 @@
-package beego_t
+package main
 
 import (
 	"github.com/astaxie/beego"

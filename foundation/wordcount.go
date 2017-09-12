@@ -1,4 +1,4 @@
-package main
+package foundation
 
 import (
 	"bufio"
@@ -16,6 +16,8 @@ type Pair struct {
 	Key   string
 	Value int
 }
+
+
 
 // PariList实现了sort接口，可以使用sort.Sort对其排序
 
