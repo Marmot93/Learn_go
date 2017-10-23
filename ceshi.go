@@ -15,7 +15,7 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "postgres"
-	dbname   = "mall"
+	dbname   = "blog"
 )
 
 func main() {
@@ -33,21 +33,22 @@ func main() {
 
 	fmt.Println("Successfully connected!")
 
-	var id int
-	var nickname  string
+	var id,age int
+	var name  string
 	var create_time  time.Time
-	rows, err := db.Query(`SELECT id, nickname, create_time FROM consumer_consumer ;`)
+	rows, err := db.Query(`SELECT id, age, create_time, "name" FROM student;`)
 	if err != nil{
 		panic(err)
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&id, &nickname, &create_time)
+		err := rows.Scan(&id, &age, &create_time, &name)
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(id, nickname, create_time.Format("2006-01-02 15:04:05"))
+		//fmt.Println(id, nickname, create_time.Format("2006-01-02 15:04:05"))
+		fmt.Println(id, age, name,create_time.Format("2006-01-02 15:04:05"))
 	}
 
 }
