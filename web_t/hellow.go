@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
-	"log"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
@@ -17,11 +17,25 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("key:", k)
 		fmt.Println("val:", strings.Join(v, ""))
 	}
-	fmt.Fprintf(w, "Hello astaxie!") //这个写入到w的是输出到客户端的
+	a := r.Form["a"][0]
+	b := r.Form["b"][0]
+
+	fmt.Fprintf(w, a + " " + b) //这个写入到w的是输出到客户端的
+	//fmt.Fprintf(w, "b") //这个写入到w的是输出到客户端的
+}
+func add(rsp http.ResponseWriter, req *http.Request) {
+	//var a int
+	//var b int
+	req.ParseForm()
+	fmt.Println(req.Form)
+	a := req.Form["a"][0]
+	b := req.Form["b"][0]
+	fmt.Fprintf(rsp, a+" "+b)
 }
 
 func main() {
-	http.HandleFunc("/", sayhelloName)       //设置访问的路由
+	http.HandleFunc("/", sayhelloName) //设置访问的路由
+	http.HandleFunc("/add/", add)
 	err := http.ListenAndServe(":9090", nil) //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
