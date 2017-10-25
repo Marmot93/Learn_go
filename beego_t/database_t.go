@@ -48,7 +48,7 @@ func update() {
 	o := orm.NewOrm()
 	o.Using("default") // 默认使用 default，你可以指定为其他数据库
 
-	user := User{Id: 8, Name: "koome_new"}
+	user := User{Id: 2, Name: "new", Age: 44}
 
 	fmt.Println(o.Update(&user))
 }
@@ -78,5 +78,6 @@ func query() {
 func main() {
 	//insert()
 	//delete()
+	//update()
 	query()
 }
