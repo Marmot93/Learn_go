@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/astaxie/beego"
 	_ "github.com/lib/pq"
 	"time"
 )
@@ -16,11 +15,7 @@ const (
 	dbname   = "blog"
 )
 
-type MainController struct {
-	beego.Controller
-}
-
-func (self *MainController) Get() {
+func main() {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -52,10 +47,5 @@ func (self *MainController) Get() {
 		//fmt.Println(id, nickname, create_time.Format("2006-01-02 15:04:05"))
 		fmt.Println(id, age, name, create_time.Format("2006-01-02 15:04:05"))
 	}
-	self.Ctx.WriteString(name)
-}
 
-func main() {
-	beego.Router("/", &MainController{})
-	beego.Run()
 }
