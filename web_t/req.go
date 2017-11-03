@@ -63,6 +63,7 @@ func main() {
 	data := make(map[string]string)
 	data["phone"] = "18080482962"
 	data["password"] = "123456"
+	//var info string
 	info := ""
 	for k, v := range data{
 		info = info + fmt.Sprintf("%s=%s&", k,v)
