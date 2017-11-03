@@ -5,9 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
-	"strings"
+	//"net/url"
+	//"strings"
 	"io"
+	"strings"
 )
 
 // 请求
@@ -49,11 +50,24 @@ func pe(err error) {
 }
 
 func main() {
-	data := url.Values{}
-	data.Add("phone", "18080482962")
-	data.Add("password", "123456")
-	fmt.Println(data)
-	req_data := strings.NewReader(data.Encode())
+	// 调用拼接
+
+	//data := url.Values{}
+	//data.Add("phone", "18080482962")
+	//data.Add("password", "123456")
+	//fmt.Println(data.Encode())  // password=123456&phone=18080482962
+	//req_data := strings.NewReader(data.Encode())
+	//req_data := strings.NewReader("password=123456&phone=18080482962")
+
+	// 自己拼接
+	data := make(map[string]string)
+	data["phone"] = "18080482962"
+	data["password"] = "123456"
+	info := ""
+	for k, v := range data{
+		info = info + fmt.Sprintf("%s=%s&", k,v)
+	}
+	req_data := strings.NewReader(info[:len(info)-1])
 	rsp, err := req("POST", "http://120.77.237.231:8001/seller/log_in/", req_data)
 	pe(err)
 	fmt.Println(rsp)
