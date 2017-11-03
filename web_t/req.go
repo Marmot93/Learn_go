@@ -26,7 +26,7 @@ func get() (rsp string, err error) {
 func req(method string, url string, data io.Reader) (rsp string, err error) {
 	// 创建Client
 	client := &http.Client{}
-	// 构建请求 method, url, io.Reader
+	// 构建请求 method(""==GER), url, io.Reader
 	req, err := http.NewRequest(method, url, data)
 	// 构建请求头
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -69,6 +69,7 @@ func main() {
 		info = info + fmt.Sprintf("%s=%s&", k,v)
 	}
 	req_data := strings.NewReader(info[:len(info)-1])
+	//rsp, err := req("", "http://120.77.237.231:8001/consumer/index/", req_data)
 	rsp, err := req("POST", "http://120.77.237.231:8001/seller/log_in/", req_data)
 	pe(err)
 	fmt.Println(rsp)
