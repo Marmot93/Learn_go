@@ -51,12 +51,14 @@ func pe(err error) {
 
 func main() {
 	// 调用拼接
-
 	//data := url.Values{}
 	//data.Add("phone", "18080482962")
 	//data.Add("password", "123456")
 	//fmt.Println(data.Encode())  // password=123456&phone=18080482962
 	//req_data := strings.NewReader(data.Encode())
+
+
+	// 自己写
 	//req_data := strings.NewReader("password=123456&phone=18080482962")
 
 	// 自己拼接
