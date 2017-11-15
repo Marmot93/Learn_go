@@ -1,4 +1,4 @@
-package cli
+package main
 
 import (
 	"encoding/json"
@@ -86,12 +86,13 @@ func main() {
 	var city string
 	var day string
 
-	flag.StringVar(&city, "c", "上海", "城市中文名")
+	flag.StringVar(&city, "c", "成都", "城市中文名")
 	flag.StringVar(&day, "d", "今天", "可选: 今天, 昨天, 预测")
 	flag.Parse()
 
 	var r Response
 	body, err := Request(fmt.Sprintf("http://www.sojson.com/open/api/weather/json.shtml?city=%s",city))
+	fmt.Println(body)
 	err = json.Unmarshal([]byte(body), &r)
 	if err != nil {
 		fmt.Printf("\nError message: %v", err)
