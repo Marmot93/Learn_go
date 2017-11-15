@@ -18,22 +18,22 @@ func init() {
 	orm.RegisterDataBase("default", "postgres", "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=blog sslmode=disable")
 
 	orm.RegisterModel(new(User))
+
+	orm.Debug = true
 }
 
 func insert() {
 
-	orm.Debug = true;
 	o := orm.NewOrm()
 	o.Using("default") // 默认使用 default，你可以指定为其他数据库
 
-	user := User{Name: "marmot", Age: 24, Id:2}
+	user := User{Name: "marmot", Age: 24, Id: 1}
 
 	fmt.Println(o.Insert(&user))
 }
 
 func delete() {
 
-	orm.Debug = true;
 	o := orm.NewOrm()
 	o.Using("default") // 默认使用 default，你可以指定为其他数据库
 
@@ -44,7 +44,6 @@ func delete() {
 
 func update() {
 
-	orm.Debug = true;
 	o := orm.NewOrm()
 	o.Using("default") // 默认使用 default，你可以指定为其他数据库
 
@@ -57,7 +56,6 @@ func query() {
 
 	var j, i int64
 
-	orm.Debug = true;
 	o := orm.NewOrm()
 	o.Using("default") // 默认使用 default，你可以指定为其他数据库
 
@@ -76,8 +74,8 @@ func query() {
 }
 
 func main() {
-	//insert()
+	insert()
 	//delete()
 	//update()
-	query()
+	//query()
 }
