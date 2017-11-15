@@ -15,14 +15,6 @@ type Info struct {
 
 func query(phone string, realname string, cardno string) (info string) {
 	uri := "http://v.apix.cn/apixcredit/idcheck/mobile/"
-	//data := url.Values{}
-	//data.Add("phone", phone)
-	//data.Add("name", realname)
-	//data.Add("cardno", cardno)
-	//data.Add("type", "mobile")
-	////fmt.Println(data.Encode())  // password=123456&phone=18080482962
-	//req_data := strings.NewReader(data.Encode())
-	//fmt.Println(req_data)
 	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
 		fmt.Println("构建请求错误", err)
