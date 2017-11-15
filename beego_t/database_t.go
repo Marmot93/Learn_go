@@ -74,8 +74,8 @@ func query() {
 }
 
 func main() {
-	insert()
+	//insert()
 	//delete()
 	//update()
-	//query()
+	query()
 }
