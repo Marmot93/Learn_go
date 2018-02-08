@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"github.com/bitly/go-simplejson"
 )
 
 type Info struct {
@@ -57,6 +58,7 @@ func req() (rsp string, err error) {
 func main() {
 	body, _ := get()
 	var info Info
+	rsp := simplejson.NewJson([]byte(body))
 	// byte  &interface
 	json.Unmarshal([]byte(body), &info)
 	fmt.Println(info.NewsKindsInfo[0].Name)

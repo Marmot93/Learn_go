@@ -22,6 +22,7 @@ type BoxList []Box //a slice of boxes
 func (b Box) Volume() float64 {
 	return b.width * b.height * b.depth
 }
+
 // 修改内存的属性用指针，要不然后面两个print是YELLOW
 func (b *Box) SetColor(c Color) {
 	b.color = c
