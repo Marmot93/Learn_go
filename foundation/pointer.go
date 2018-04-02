@@ -1,4 +1,4 @@
-package foundation
+package main
 
 import (
 	"fmt"
@@ -11,8 +11,10 @@ func swap1(x, y, p *int) {
 	if *x > *y {
 		*x, *y = *y, *x
 	}
+	// 会修改穿进去的参数
 	*p = *x * *y
 }
+
 // 第一个（）内是变量，第二个是输出
 func swap2(x, y int) (int, int, int) {
 	if x > y {
