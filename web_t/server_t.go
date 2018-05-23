@@ -1,9 +1,9 @@
 package main
 
 import (
+	"log"
 	"net"
 	"time"
-	"log"
 )
 
 func (srv *Server) Serve(l net.Listener) error {

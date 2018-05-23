@@ -17,4 +17,5 @@ func loop() {
 func main() {
 	go loop()
 	<- complete // 直到线程跑完, 取到消息. main在此阻塞住
+	fmt.Println(100*100)
 }

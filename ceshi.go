@@ -1,13 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-// 正确示例
+// 等待所有 goroutine 执行完毕
+// 使用传址方式为 WaitGroup 变量传参
+// 使用 channel 关闭 goroutine
+
 func main() {
-	s1 := []int{1,2,3}
-	s2 := s1[:0]
-
-	s2 = append(s2, 4)
-	fmt.Print(s1)
-	fmt.Print(s2)
+	s := fmt.Sprintf("%v", math.Pi)
+	fmt.Println(s)
 }
