@@ -11,7 +11,6 @@ func singleNumber(nums []int) int {
 	if len(nums) == 1 {
 		return nums[0]
 	}
-	fmt.Println(nums)
 	for len(nums) > 1 && nums[0] == nums[1] {
 		nums = nums[2:]
 	}
